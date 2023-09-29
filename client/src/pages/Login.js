@@ -1,5 +1,6 @@
 import './Login.css';
-import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
 
 
 
@@ -7,6 +8,7 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
+  const navigate = useNavigate()
 
 
   
@@ -18,11 +20,12 @@ function Login() {
       password: password,
   }))
     .then(response => response.json()).then(() => {
-      // add in link to next page!
+      navigate('/')
     })
     .catch(() =>
       {
-       setLoggedIn(false);
+       setLoggedIn(false)
+       
       }
     )
   }

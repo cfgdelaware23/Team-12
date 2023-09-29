@@ -1,4 +1,5 @@
 import './SignUp.css';
+import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 
 function SignUp() {
@@ -8,6 +9,7 @@ function SignUp() {
   const [lastName, setLastName] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
   const [isHost, setIsHost] = useState(false)
+  const navigate = useNavigate()
 
 
   
@@ -22,11 +24,12 @@ function SignUp() {
       isHost: isHost,
   }))
     .then(response => response.json()).then(() => {
-      // add in link to next page!
+      navigate('/')
     })
     .catch(() =>
       {
        setLoggedIn(false);
+     
       }
     )
   }
@@ -35,7 +38,7 @@ function SignUp() {
   
   return (
     <div className='main_container'>
-      <h1 className='heading'> Log In </h1>
+      <h1 className='heading'> Make An Account! </h1>
        <form className='main_container' onSubmit={handleSubmit}>
         
         <label className='input_heading'> First Name </label>
