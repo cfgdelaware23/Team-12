@@ -1,15 +1,34 @@
 import './Login.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 
 function Login() {
-
-  const handleSubmit = () => {
-
-  }
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loggedIn, setLoggedIn] = useState(false)
+
+
+  
+
+
+  function handleSubmit (){
+    fetch('/api/signin' + new URLSearchParams({
+      email: email,
+      password: password,
+  }))
+    .then(response => response.json()).then(() => {
+      // add in link to next page!
+    })
+    .catch(() =>
+      {
+       setLoggedIn(false);
+      }
+    )
+  }
+  
+  
+  
   return (
     <div className='main_container'>
       <h1 className='heading'> Log In </h1>
