@@ -2,7 +2,13 @@ import './Login.css';
 
 function Login() {
   return (
- <h1>Login Page</h1>
+    <div>
+       <form>
+          <label> Username/email </label>
+          <input></input>
+       </form>
+    </div>
+
   );
 }
 
