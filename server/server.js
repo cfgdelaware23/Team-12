@@ -1,9 +1,19 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv/config");
 
 const app = express();
 
-const PORT = 3000;
+mongoose
+  .connect(process.env.DB_CONNECTION)
+  .then((result) => {
+    console.log("Connected to Database");
+
+    app.listen(process.env.PORT, () => {
+      console.log(`Server running on port ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => console.log(err));
 
 app.get("/", (req, res) => {
   res.send("hello");
@@ -87,7 +97,3 @@ app.post("/signup", async (req, res) => {
 //       });
 //     }
 //   });
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
