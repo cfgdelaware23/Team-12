@@ -1,7 +1,7 @@
 import './CreateEvent.css';
 import {useState} from 'react'
 function CreateEvent() {
-const [form, setForm] = useState({name: "",timeStart: "",timeEnd: "",url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false});
+const [form, setForm] = useState({name: "",timeStart: "",timeEnd: "",url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[]});
 
 const checkTime = ()=>
 {
@@ -107,11 +107,14 @@ const submitEvent = (event) =>
        
        <label>How does it reccur? ?<select name = "recurringTwice"  onChange={handleChange}>
               <option value = "once">Once a Week</option>
-              <option value = "once">Every other Week</option>
-              <option value = "once">Once a month at this time</option>
+              <option value = "other">Every other Week</option>
+              <option value = "monthly">Once a month at this time</option>
             </select></label>}
             </div>
-           
+        <div className = "tags">Which of these apply to your event:
+            
+            
+            </div> 
        
     <button className ="submit" onSubmit = {submitEvent}>Submit</button>
 
