@@ -1,11 +1,25 @@
 import './CreateEvent.css';
 import {useState} from 'react'
 function CreateEvent() {
-const [form, setForm] = useState({name: "",timeStart: "",timeEnd: "",url:"",recurring:false});
+const [form, setForm] = useState({name: "",timeStart: "",timeEnd: "",url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false});
 
+const checkTime = ()=>
+{
+
+}
 const handleChange = (event) => {
+    
     const { name, value } = event.target;
-    setForm((prevFormData) => ({ ...prevFormData, [name]: value }));
+
+    setForm({ ...form, [name]: value });
+    console.log(form[name])
+  };
+  const handleClick = (event) => {
+    
+    console.log(event.target.name)
+    const n = event.target.name
+    setForm({ ...form, [event.target.name]: !form[n] });
+    
   };
 
 const submitEvent = (event) => 
@@ -15,7 +29,9 @@ const submitEvent = (event) =>
 }
   return (
  <div className = "form">
-     <label type = "text" value = {form.name} onChange = {handleChange}>Podcast Name</label>
+     
+     <label>Name of Call:<input type = "text" value = {form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}></input></label>
+     <div className = "day">
      <label>
           Pick your preferred day of the week:
           <select  onChange={handleChange}>
@@ -28,6 +44,8 @@ const submitEvent = (event) =>
             <option value="Sunday">Sunday</option>
           </select>
         </label>
+        </div>
+        <div className = "startTime">
         <label>
           Pick your preferred start time:
           <select  onChange={handleChange}>
@@ -51,6 +69,8 @@ const submitEvent = (event) =>
             <option value="5-30-PM">5:30 PM</option>
           </select>
         </label>
+        </div>
+        <div className = "endTime">
         <label>
         Pick your preferred end time:
         <select  onChange={handleChange}>
@@ -75,8 +95,24 @@ const submitEvent = (event) =>
             <option value="6-30-PM">6:30 PM</option>
           </select>
         </label>
-       <label type = "text" onChange = {handleChange} value = {form.url}></label>
-       <label type = "checkbox" onChange = {handleChange} ></label>
+        </div>
+        <div className = "url">
+       <label type = "textarea" onChange = {handleChange} value = {form.url}>URL:</label>
+       </div>
+       <div class = "recur">
+       <label>Is this a recurring event? <input name = "recurring" type = "checkbox" onChange = {handleClick}></input></label>
+       </div>
+       <div class = "recurrField">
+       { form.recurring && 
+       
+       <label>How does it reccur? ?<select name = "recurringTwice"  onChange={handleChange}>
+              <option value = "once">Once a Week</option>
+              <option value = "once">Every other Week</option>
+              <option value = "once">Once a month at this time</option>
+            </select></label>}
+            </div>
+           
+       
     <button className ="submit" onSubmit = {submitEvent}>Submit</button>
 
  </div>
