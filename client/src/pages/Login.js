@@ -14,7 +14,7 @@ function Login() {
   
 
 
-  function handleSubmit (){
+  function handleSubmit() {
     fetch('/api/signin' + new URLSearchParams({
       email: email,
       password: password,
@@ -24,7 +24,8 @@ function Login() {
     })
     .catch(() =>
       {
-       setLoggedIn(false)
+       //setLoggedIn(false)
+       navigate('/')
        
       }
     )

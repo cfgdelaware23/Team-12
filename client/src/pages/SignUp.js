@@ -15,24 +15,26 @@ function SignUp() {
   
 
 
-  function handleSubmit (){
+  function handleSubmit () {
     fetch('/api/create-account' + new URLSearchParams({
       firstName: firstName,
       lastName: lastName,
       email: email,
       password: password,
       isHost: isHost,
-  }))
-    .then(response => response.json()).then(() => {
+    }))
+    .then(response => response.json()).
+    then(() => {
       navigate('/')
     })
     .catch(() =>
       {
-       setLoggedIn(false);
-     
+       navigate('/')
+       
       }
     )
   }
+  
   
   
   
@@ -50,7 +52,7 @@ function SignUp() {
 
       <label className='input_heading'> Last Name </label>
               <input className='input' type='text' 
-                    id='lastName' name='lastName' placeholder='Jane'
+                     name='lastName' placeholder='Jane'
                     onChange={
                       (e) => setLastName(e.target.value)}></input>
          
@@ -68,7 +70,7 @@ function SignUp() {
 
           <label className='input_heading'> Host? </label>
           <input className='input' type='checkbox' 
-            id='password' name='password' placeholder='enter password'
+             placeholder='enter password'
             onChange={
               (e) => setIsHost(e.target.value)}></input>
 
