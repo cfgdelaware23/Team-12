@@ -63,30 +63,30 @@ app.post("/signup", async (req, res) => {
 });
 
 // app.post("/planevent", async (req, res) => {
-//   const response = await Event.findOne({ email: req.body.email });
-//   if (response !== null) {
-//     const match = await bcrypt.compare(req.body.password, response.password);
-//     if (match) {
-//       console.log("match");
+//     const response = await User.findOne({ email: req.body.email });
+//     if (response !== null) {
+//       const match = await bcrypt.compare(req.body.password, response.password);
+//       if (match) {
+//         console.log("match");
 
-//       res.status(200).json({
-//         email: response.email,
-//         apiKey: response.apiKey,
-//         registrationDate: response.registrationDate,
-//       });
+//         res.status(200).json({
+//           email: response.email,
+//           apiKey: response.apiKey,
+//           registrationDate: response.registrationDate,
+//         });
+//       } else {
+//         console.log("wrong pass");
+//         res.status(404).send({
+//           error: "auth failed",
+//         });
+//       }
 //     } else {
-//       console.log("wrong pass");
+//       console.log("not found");
 //       res.status(404).send({
 //         error: "auth failed",
 //       });
 //     }
-//   } else {
-//     console.log("not found");
-//     res.status(404).send({
-//       error: "auth failed",
-//     });
-//   }
-// });
+//   });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
