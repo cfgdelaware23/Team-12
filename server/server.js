@@ -193,6 +193,25 @@ app.post("/volunteer", async (req, res) => {
   }
 });
 
+
+
+// email list
+app.post("/emaillist", async (req, res) => {
+  // email object that contains the email as well as params for sending
+  const emailBody = { emailAddress, email };
+
+  // check if the incoming data is even an email
+  if (!email) {
+    return res.status(400).json({ "Error: Not an email "})
+  } 
+
+  // return email body if it's an email
+  return res.status(200).json(emailBody)
+})
+
+=======
+=======
+>>>>>>> main
 app.get("/totalhours", async (req, res) => {
   const volunteers = await User.find({});
   let sum = 0;
@@ -210,7 +229,17 @@ app.get("/user", (req, res) => {
   }
 });
 
-app.get("/getuser",async (req,res)=>{
-  const response = await User.findOne({email: user.email})
-  res.status(200).send(response);
+app.get("/getuser", async (req, res) => {
+  if (user.email != "") {
+    const response = await User.findOne({ email: user.email });
+    res.status(200).send(response);
+  } else {
+    res.status(404);
+  }
+});
+
+// Recommendations
+app.post("/recommendations", async (req, res) => {
+  
 })
+
