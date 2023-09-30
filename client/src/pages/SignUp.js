@@ -28,33 +28,33 @@ function SignUp() {
     if (isSocial) 
     {
       selectedCounter++;
-      selections.push("Social")
+      selections.push("social")
     }
     if (isAcademic) 
     {
       selectedCounter++;
-      selections.push("Academic")
+      selections.push("academic")
     }
     if (isReligion) 
     {
       selectedCounter++;
-      selections.push("Religion")
+      selections.push("religion")
     }
     if (isHealth){
       
         selectedCounter++;
-        selections.push("Health")
+        selections.push("health")
       
     }
 
     if (isTech)
     {
       selectedCounter++;
-      selections.push("Technology")
+      selections.push("technology")
     }
     if (isArt) {
       selectedCounter++;
-      selections.push("Art")
+      selections.push("art")
     }
 
     if (selectedCounter === 3){
