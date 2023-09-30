@@ -267,5 +267,3 @@ app.get("/getuser", async (req, res) => {
   }
 });
 
-// Recommendations
-app.post("/recommendations", async (req, res) => {});
