@@ -111,23 +111,29 @@ app.post("/checkevent", async (req, res) => {
   res.status(200).json({ conflict: false });
 });
 
-
 // getEvents route
-// sends a json of all the events 
+// sends a json of all the events
 app.get("/getEvents", async (req, res) => {
-  const events = await Event.find()
-  .catch((err) => console.log(err))
+  const events = await Event.find().catch((err) => console.log(err));
 
-  res.status(200).json(events)
-})
+  res.status(200).json(events);
+});
 
 // getEmptyEvents
 app.get("/getEmptyEvents", async (req, res) => {
   // find all the attributes that take in a user
-  const emptyEvents = await Event.find({ $or: [{ host: "" } , { mod: "" },  { streamer: "" }, {broadcaster: ""}, { facilitator: ""}] })
-    if (emptyEvents.length === 0) {
-      res.status(200).json({emptyEvents: []})
-    } else {
-      res.status(200).json({emptyEvents: emptyEvents})
-    }
-})
+  const emptyEvents = await Event.find({
+    $or: [
+      { host: "" },
+      { mod: "" },
+      { streamer: "" },
+      { broadcaster: "" },
+      { facilitator: "" },
+    ],
+  });
+  if (emptyEvents.length === 0) {
+    res.status(200).json({ emptyEvents: [] });
+  } else {
+    res.status(200).json({ emptyEvents: emptyEvents });
+  }
+});
