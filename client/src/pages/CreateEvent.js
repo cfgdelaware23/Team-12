@@ -6,6 +6,7 @@ function CreateEvent() {
 const user = localStorage.getItem('user')
 const cur_date = new Date()
 const [form, setForm] = useState({date:cur_date,name: "",timeStart: 0.0,timeEnd: 30.0,url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[],desc:""});
+const [canSubmit,setSubmit] = useState(false)
 
 async function adjustTime() {
 
@@ -21,7 +22,7 @@ async function adjustTime() {
       console.log(newEvent);
  
       const options = {
-        method: "GET",
+        method: "POST",
         mode: "cors",
         headers: {
           Accept: "application/json",
@@ -32,8 +33,11 @@ async function adjustTime() {
       try {
        const response = await fetch("http://localhost:3001/checkevent ", options);
        const result = await response.json();
-       if(result){
-        
+       console.log(result)
+       if(result === true){
+        alert("That time has a conflict, please select another day and/or time")
+        setForm({ ...form, timeStart: 0});
+        setForm({ ...form, timeEnd: 0});
     }
     else
     {
@@ -83,24 +87,29 @@ const handleEndTime = (event) =>
 {
  
     const comps = event.target.value.split('-');
-
-   let hour = parseInt(comps[0])
+    console.log(comps+" "+comps.length);
+    //base of 9 AM
+   let hour = parseInt(comps[0]);
             if(hour < 9)
             {
                 hour+=12;
-               hour =  (hour-9)*60
+               hour =  (hour-9)*60;
             }
             else
             {
-                hour*=60
+                console.log(hour);
+                hour =(hour-9)*60;
 
             }
         if(comps.length === 3)
         {
-            hour+=30;
+            
+            
+            hour = hour + 30;
+            
         }
-        adjustTime();
-        setForm({ ...form, timeEnd: hour });
+       console.log(hour+"HOUR")
+        setForm({ ...form, timeEnd: hour});
     
 }
 const handleChange = (event) => {
@@ -298,7 +307,7 @@ const handleTag = (event) =>
 {console.log(user)}
             </div>
            
-    <button className ="submit" onClick = {submitEvent}>Submit</button>
+            <button className="submit" onClick={form.name !=="" && form.url !=="" &&form.desc!=="" ? submitEvent : () => alert("You are missing fields")}>Submit</button>
 
  </div>
 
