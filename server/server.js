@@ -136,6 +136,23 @@ app.get("/getEvents", async (req, res) => {
   res.status(200).json(events);
 });
 
+// locate user preferences based on email
+app.post("/getUserPreferences", async (req, res) => {
+  const response = await User.findOne({ email: req.body.email });
+  if (response !== null) {
+    user = { email: req.body.email };
+    res.status(200).json({
+      response: categories
+    });
+    } 
+   else {
+    console.log("not found");
+    res.status(404).send({
+      error: "auth failed",
+    });
+  }
+});
+
 // get events
 app.post("/getRecommmendedEvents", async (req, res) => {
   const userPreferences = [ req.body.pref1, req.body.pref2, 
