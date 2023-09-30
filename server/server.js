@@ -72,6 +72,7 @@ app.post("/signup", async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
+        categories: req.body.categories,
         password: hash,
         isHost: req.body.isHost,
         totalHours: 0,
@@ -79,9 +80,10 @@ app.post("/signup", async (req, res) => {
       newUser.save();
       console.log("Account successfully created");
     });
-    res
-      .status(200)
-      .json({ message: "Account successfully created", status: 200 });
+
+    // res
+    //   .status(200)
+    //   .json({ message: "Account successfully created", status: 200 });
   } else {
     console.log("Account creation unsuccessful");
     res.status(404).json({
@@ -147,6 +149,38 @@ app.get("/getEvents", async (req, res) => {
   res.status(200).json(events);
 });
 
+// locate user preferences based on email
+app.post("/getUserPreferences", async (req, res) => {
+  try {
+    const response = await User.findOne({ email: req.body.email });
+    if (response !== null) {
+      user = { email: req.body.email };
+      res.status(200).json({
+        response: categories,
+      });
+    } else {
+      console.log("not found");
+      res.status(404).send({
+        error: "auth failed",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+  res.status(200).send("Test");
+});
+
+// get events
+app.post("/getRecommmendedEvents", async (req, res) => {
+  const userPreferences = [req.body.pref1, req.body.pref2, req.body.pref3];
+  const events = await Event.find({
+    categories: { $in: userPreferences },
+  }).catch((err) => console.log(err));
+
+  res.status(200).json(events);
+});
+
 app.get("/getEmptyEvents", async (req, res) => {
   const emptyEvents = await Event.find({
     $or: [
@@ -193,8 +227,6 @@ app.post("/volunteer", async (req, res) => {
   }
 });
 
-
-
 // email list
 app.post("/emaillist", async (req, res) => {
   // email object that contains the email as well as params for sending
@@ -202,12 +234,12 @@ app.post("/emaillist", async (req, res) => {
 
   // check if the incoming data is even an email
   if (!email) {
-    return res.status(400).json({ "Error: Not an email "})
-  } 
+    return res.status(400).json({ error: "Error: Not an email " });
+  }
 
   // return email body if it's an email
-  return res.status(200).json(emailBody)
-})
+  return res.status(200).json(emailBody);
+});
 
 app.get("/totalhours", async (req, res) => {
   const volunteers = await User.find({});
@@ -236,7 +268,4 @@ app.get("/getuser", async (req, res) => {
 });
 
 // Recommendations
-app.post("/recommendations", async (req, res) => {
-  
-})
-
+app.post("/recommendations", async (req, res) => {});
