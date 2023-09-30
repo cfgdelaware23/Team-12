@@ -204,7 +204,7 @@ function SignUp() {
 
         </div>
 
-        <input className="submit_button" type="submit" value="Submit"></input>
+        <input className="submit_button" onClick={handleSubmit} type="submit" value="Submit"></input>
       </form>
     </div>
   );
