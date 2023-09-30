@@ -52,8 +52,8 @@ function VolunteerSignUp() {
 async function handleFac(event)
 {
   const newVol = JSON.stringify({
-    eventID : event._id,
-    role : 'facilitator',
+    eventID: event._id,
+    role: 'facilitator',
   });
   console.log(newVol);
 
@@ -67,22 +67,24 @@ async function handleFac(event)
     body: newVol,
   };
   try {
-    
-    console.log("test1")
+    console.log("test1");
     const response = await fetch("http://localhost:3001/volunteer", options);
-   
+    if (response.ok) {
+      console.log("Request was successful");
+      window.location.href = '/';
+    } else {
+      console.log("Request failed with status: " + response.status);
+    }
   } catch (err) {
-    console.log(err);
-    console.log("there was an error ");
+    console.error("An error occurred: " + err.message);
   }
   window.location.href = '/';
 }
 
-async function handleMod(event)
-{
+async function handleMod(event) {
   const newVol = JSON.stringify({
-    eventID : event._id,
-    role : 'moderator',
+    eventID: event._id,
+    role: 'moderator',
   });
   console.log(newVol);
 
@@ -96,15 +98,17 @@ async function handleMod(event)
     body: newVol,
   };
   try {
-    
-    console.log("test1")
+    console.log("test1");
     const response = await fetch("http://localhost:3001/volunteer", options);
-    
+    if (response.ok) {
+      console.log("Request was successful");
+      window.location.href = '/';
+    } else {
+      console.log("Request failed with status: " + response.status);
+    }
   } catch (err) {
- 
-    console.log("there was an error ");
-  }window.location.href = '/';
-
+    console.error("An error occurred: " + err.message);
+  }
 }
 
 async function handleStream(event)
