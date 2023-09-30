@@ -30,7 +30,7 @@ function Home() {
   // get user preferences & find recommended events
   useEffect(() => {
     fetch('http://localhost:3001/getUserPreferences', options)
-    .then((response) => response.json())
+    //.then((response) => response.json())
     .then((data) => {
       // set user preferences
       console.log(data.categories)
