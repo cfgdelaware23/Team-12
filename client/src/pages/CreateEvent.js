@@ -29,7 +29,7 @@ async function adjustTime() {
           Accept: "application/json",
          "Content-Type": "application/json;charset=UTF-8",
         },
-        body: newEvent,
+       body: newEvent,
       };
       try {
        const response = await fetch("http://localhost:3001/checkevent ", options);
