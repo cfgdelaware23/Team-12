@@ -15,8 +15,12 @@ function EventData() {
       try {
         const response = await fetch('http://localhost:3001/getEvents', options);
         const data = await response.json();
-        setEvents(data); 
-        console.log(data);
+        setEvents(data);
+
+        
+   ;
+
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -24,6 +28,12 @@ function EventData() {
 
     fetchData();
   }, []);
+
+
+
+
+
+
 
   return (
     <>
