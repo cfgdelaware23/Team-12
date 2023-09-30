@@ -17,7 +17,7 @@ function Login() {
       password: password,
   }))
     .then(response => response.json()).then(() => {
-      window.location.href = '/Home';
+      window.location.href = '/';
     })
     .catch(() =>
       {
