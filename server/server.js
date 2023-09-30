@@ -210,7 +210,11 @@ app.get("/user", (req, res) => {
   }
 });
 
-app.get("/getuser",async (req,res)=>{
-  const response = await User.findOne({email: user.email})
-  res.status(200).send(response);
-})
+app.get("/getuser", async (req, res) => {
+  if (user.email != "") {
+    const response = await User.findOne({ email: user.email });
+    res.status(200).send(response);
+  } else {
+    res.status(404);
+  }
+});
