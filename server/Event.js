@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-const eventSchema = new mongoos.schema({
+const eventSchema = new mongoose.schema({
   host: { type: String },
   mod: { type: String },
   streamer: { type: String },
@@ -15,7 +15,7 @@ const eventSchema = new mongoos.schema({
   url: { type: String, required: true },
   categories: { type: [String] },
   eventName: { type: String, required: true },
-  volunteers: { type: String },
+  volunteers: { type: String }, 
 });
 
 module.exports = mongoose.model("Event", eventSchema);

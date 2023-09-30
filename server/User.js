@@ -11,6 +11,7 @@ const userSchema = new mongoos.schema({
   userType: { type: Number, required: true },
   isHost: { type: Boolean, required: true },
   totalHours: { type: Number, required: true },
+  
 
 });
 
