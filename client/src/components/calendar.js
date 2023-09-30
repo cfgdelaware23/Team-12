@@ -5,7 +5,7 @@ import{useState, useEffect} from 'react'
 function MyCalendar() {
   // fetch event data
   const [eventData, setEventData] = useState({}); // Store event data in state
-
+  let date = {};
   
   useEffect(() => {
 
@@ -15,11 +15,13 @@ function MyCalendar() {
         mode: 'cors',
       };
       try {
-        console.log("hi")
-        const response = await fetch('http://localhost:3001/planevent', options);
+        const response = await fetch('http://localhost:3001/getEvents', options);
         console.log(response);
         const data = await response.json();
-        console.log(data);
+        let arr = {};
+        setEventData(data[13].date.slice(0,11)); 
+        console.log(eventData);
+
       } catch (error) {
         console.error('Error fetching data:', error);
         console.log(eventData);
