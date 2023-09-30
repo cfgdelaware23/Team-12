@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-const emailSchema = new mongoos.schema({
+const emailSchema = new mongoose.Schema({
   eventHappening: { type: event, type: boolean, required: true },
   
   
