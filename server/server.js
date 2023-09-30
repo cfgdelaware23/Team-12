@@ -9,7 +9,7 @@ const User = require("./User.js");
 
 const app = express();
 
-let user = { email: "" };
+let user = { email: "", totalHours: 10 };
 
 mongoose
   .connect(process.env.DB_CONNECTION)
@@ -44,7 +44,7 @@ app.post("/signin", async (req, res) => {
     const match = await bcrypt.compare(req.body.password, response.password);
     if (match) {
       console.log("match");
-      user = { email: req.body.email };
+      user = { email: response.email, totalHours: response.totalHours };
       res.status(200).json({ status: 200 });
     } else {
       console.log("wrong pass");
@@ -72,16 +72,18 @@ app.post("/signup", async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
+        categories: req.body.categories,
         password: hash,
         isHost: req.body.isHost,
-        totalHours: 10,
+        totalHours: 0,
       });
       newUser.save();
       console.log("Account successfully created");
     });
-    res
-      .status(200)
-      .json({ message: "Account successfully created", status: 200 });
+
+    // res
+    //   .status(200)
+    //   .json({ message: "Account successfully created", status: 200 });
   } else {
     console.log("Account creation unsuccessful");
     res.status(404).json({
@@ -91,7 +93,9 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/planevent", (req, res) => {
+app.post("/planevent", async (req, res) => {
+  const hours = Math.abs(req.body.endTime - req.body.startTime);
+  console.log("differnce in hours:", hours);
   const newEvent = new Event({
     host: user.email,
     mod: req.body.mod,
@@ -107,7 +111,15 @@ app.post("/planevent", (req, res) => {
     eventName: req.body.eventName,
   });
   newEvent.save();
-  res.status(200).json({ message: successful });
+  console.log("users total hours:", user.totalHours);
+  console.log("difference in hours", hours);
+  const newHours = user.totalHours + hours;
+  const response = await User.findOneAndUpdate(
+    { email: user.email },
+    { totalHours: newHours }
+  );
+  user = { email: user.email, totalHours: newHours };
+  res.status(200).json({ message: "successful" });
   console.log("Event successfully added");
 });
 
@@ -123,7 +135,8 @@ app.post("/checkevent", async (req, res) => {
     const endTime = event.endTime;
     if (
       newEventInterval.endTime >= startTime &&
-      newEventInterval.startTime <= endTime
+      newEventInterval.endTime <= endTime || newEventInterval.startTime <= endTime &&
+      newEventInterval.startTime <= startTime
     ) {
       res.status(200).json({ conflict: true });
     }
@@ -133,6 +146,38 @@ app.post("/checkevent", async (req, res) => {
 
 app.get("/getEvents", async (req, res) => {
   const events = await Event.find().catch((err) => console.log(err));
+
+  res.status(200).json(events);
+});
+
+// locate user preferences based on email
+app.post("/getUserPreferences", async (req, res) => {
+  try {
+    const response = await User.findOne({ email: req.body.email });
+    if (response !== null) {
+      user = { email: req.body.email };
+      res.status(200).json({
+        response: categories,
+      });
+    } else {
+      console.log("not found");
+      res.status(404).send({
+        error: "auth failed",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+  res.status(200).send("Test");
+});
+
+// get events
+app.post("/getRecommmendedEvents", async (req, res) => {
+  const userPreferences = [req.body.pref1, req.body.pref2, req.body.pref3];
+  const events = await Event.find({
+    categories: { $in: userPreferences },
+  }).catch((err) => console.log(err));
 
   res.status(200).json(events);
 });
@@ -183,6 +228,21 @@ app.post("/volunteer", async (req, res) => {
   }
 });
 
+// email list
+// app.post("/emaillist", async (req, res) => {
+//   // email object that contains the email as well as params for sending
+//   const emailBody = { emailAddress, email };
+
+//   // check if the incoming data is even an email
+//   if (!email) {
+//     return res.status(400).json({ "Error: Not an email "})
+//   } 
+
+//   // return email body if it's an email
+//   return res.status(200).json(emailBody)
+// })
+
+
 app.get("/totalhours", async (req, res) => {
   const volunteers = await User.find({});
   let sum = 0;
@@ -191,3 +251,23 @@ app.get("/totalhours", async (req, res) => {
   });
   res.status(200).json({ totalHours: sum });
 });
+
+app.get("/user", (req, res) => {
+  if (user.email != "") {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json({ message: "no user logged in" });
+  }
+});
+
+app.get("/getuser", async (req, res) => {
+  if (user.email != "") {
+    const response = await User.findOne({ email: user.email });
+    res.status(200).send(response);
+  } else {
+    res.status(404);
+  }
+});
+
+// Recommendations
+app.post("/recommendations", async (req, res) => {});

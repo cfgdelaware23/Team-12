@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 
 
+
 const eventSchema = new mongoose.Schema({
 
   host: { type: String },

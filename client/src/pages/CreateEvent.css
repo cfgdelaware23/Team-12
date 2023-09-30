@@ -1,0 +1,15 @@
+
+.form{
+    background-color: aliceblue;
+}
+.day,.startTime,.endTime,.url,.recur,.recurrField,.tags,.desc,.submit-form{
+    margin-top:5%
+}
+.submit-form
+{
+    border-radius: 20%;
+    background-color: #2F0C82;
+    color:white;
+    width:120px;
+    height:80px;
+}

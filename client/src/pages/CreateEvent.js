@@ -2,6 +2,7 @@ import './CreateEvent.css';
 import {useState} from 'react';
 
 import DateObject from "react-date-object";
+import Navbar from '../components/Navbar/navbar';
 function CreateEvent() {
 const user = localStorage.getItem('user')
 const cur_date = new Date()
@@ -28,7 +29,7 @@ async function adjustTime() {
           Accept: "application/json",
          "Content-Type": "application/json;charset=UTF-8",
         },
-        body: newEvent,
+       body: newEvent,
       };
       try {
        const response = await fetch("http://localhost:3001/checkevent ", options);
@@ -77,6 +78,7 @@ const handleStartTime = (event) =>
             
         }
        console.log(hour+"HOUR")
+       adjustTime()
         setForm({ ...form, timeStart: hour});
      
     
@@ -200,6 +202,7 @@ const handleTag = (event) =>
          try {
           const response = await fetch("http://localhost:3001/planevent ", options);
           const result = await response.json();
+          window.location.href = '/';
        console.log(result);
         } catch (err) {
            console.log(err);
@@ -209,9 +212,12 @@ const handleTag = (event) =>
 
 
   return (
+      
  <div className = "form">
-     
-     <label>Name of Call:<input type = "text" value = {form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}></input></label>
+     <Navbar />
+     <div className = "form-content">
+         <h1>Register your Event !</h1>
+     <label>Name of Call:<input type = "textArea" value = {form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}></input></label>
      <div className = "day">
      <label>
           Pick your preferred day of the week:
@@ -307,10 +313,10 @@ const handleTag = (event) =>
 {console.log(user)}
             </div>
            
-            <button className="submit" onClick={form.name !=="" && form.url !=="" &&form.desc!=="" ? submitEvent : () => alert("You are missing fields")}>Submit</button>
+            <button className="submit-form" onClick={form.name !=="" && form.url !=="" &&form.desc!=="" ? submitEvent : () => alert("You are missing fields")}>Submit</button>
 
  </div>
-
+ </div>
   );
 }
 
