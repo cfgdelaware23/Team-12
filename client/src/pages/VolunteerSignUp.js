@@ -1,37 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import Card from '../components/Card/Card';
+import './VolunteerSignUp.css';
 
 function VolunteerSignUp() {
   const [cards, setCards] = useState([]);
 
-  // Use useEffect to fetch data when the component mounts
   useEffect(() => {
-    getAllEvents();
-  }, []);
-
-  const getAllEvents = () => {
-    fetch('/api/getEmptyEvents')
+    fetch('/getEmptyEvents')
       .then((response) => response.json())
       .then((data) => {
-        setCards(data); // Assuming the data is an array of cards
+       
+        setCards((prevCards) => [...prevCards, data]); 
       })
       .catch((error) => {
         console.error(error);
       });
-  };
+  }, []);
 
   return (
     <div className="options">
       {cards.map((event) => (
-        <Card key={event.id} event={event} />
+        <h1>{event.desc}</h1>
       ))}
     </div>
   );
 }
 
 export default VolunteerSignUp;
-
-
 
 
 
