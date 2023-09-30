@@ -166,5 +166,8 @@ app.post("/volunteer", async (req, res) => {
 // Recommendations page
 app.post("/recommendations", async (req, res) => {
   // logic
-  
+
 })
+
+// email list
+
