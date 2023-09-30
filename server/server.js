@@ -133,7 +133,8 @@ app.post("/checkevent", async (req, res) => {
     const endTime = event.endTime;
     if (
       newEventInterval.endTime >= startTime &&
-      newEventInterval.startTime <= endTime
+      newEventInterval.endTime <= endTime || newEventInterval.startTime <= endTime &&
+      newEventInterval.startTime <= startTime
     ) {
       res.status(200).json({ conflict: true });
     }
@@ -196,22 +197,20 @@ app.post("/volunteer", async (req, res) => {
 
 
 // email list
-app.post("/emaillist", async (req, res) => {
-  // email object that contains the email as well as params for sending
-  const emailBody = { emailAddress, email };
+// app.post("/emaillist", async (req, res) => {
+//   // email object that contains the email as well as params for sending
+//   const emailBody = { emailAddress, email };
 
-  // check if the incoming data is even an email
-  if (!email) {
-    return res.status(400).json({ "Error: Not an email "})
-  } 
+//   // check if the incoming data is even an email
+//   if (!email) {
+//     return res.status(400).json({ "Error: Not an email "})
+//   } 
 
-  // return email body if it's an email
-  return res.status(200).json(emailBody)
-})
+//   // return email body if it's an email
+//   return res.status(200).json(emailBody)
+// })
 
-=======
-=======
->>>>>>> main
+
 app.get("/totalhours", async (req, res) => {
   const volunteers = await User.find({});
   let sum = 0;

@@ -29,7 +29,7 @@ async function adjustTime() {
           Accept: "application/json",
          "Content-Type": "application/json;charset=UTF-8",
         },
-        body: newEvent,
+       body: newEvent,
       };
       try {
        const response = await fetch("http://localhost:3001/checkevent ", options);
@@ -217,7 +217,7 @@ const handleTag = (event) =>
      <Navbar />
      <div className = "form-content">
          <h1>Register your Event !</h1>
-     <label>Name of Call:<input type = "text" value = {form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}></input></label>
+     <label>Name of Call:<input type = "textArea" value = {form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}></input></label>
      <div className = "day">
      <label>
           Pick your preferred day of the week:
