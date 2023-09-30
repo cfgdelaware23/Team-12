@@ -72,6 +72,7 @@ app.post("/signup", async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
+        categories: req.body.categories,
         password: hash,
         isHost: req.body.isHost,
         totalHours: 0,
@@ -79,9 +80,10 @@ app.post("/signup", async (req, res) => {
       newUser.save();
       console.log("Account successfully created");
     });
-    res
-      .status(200)
-      .json({ message: "Account successfully created", status: 200 });
+   
+    // res
+    //   .status(200)
+    //   .json({ message: "Account successfully created", status: 200 });
   } else {
     console.log("Account creation unsuccessful");
     res.status(404).json({
@@ -143,6 +145,46 @@ app.post("/checkevent", async (req, res) => {
 
 app.get("/getEvents", async (req, res) => {
   const events = await Event.find().catch((err) => console.log(err));
+
+  res.status(200).json(events);
+});
+
+// locate user preferences based on email
+app.post("/getUserPreferences", async (req, res) => {
+  try {
+    const response = await User.findOne({ email: req.body.email });
+    if (response !== null) {
+      user = { email: req.body.email };
+      res.status(200).json({
+        response: categories
+      });
+      } 
+     else {
+      console.log("not found");
+      res.status(404).send({
+        error: "auth failed",
+      });
+    }
+  }
+  catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+  res.status(200).send("Test");
+});
+  
+
+
+
+
+// get events
+app.post("/getRecommmendedEvents", async (req, res) => {
+  const userPreferences = [ req.body.pref1, req.body.pref2, 
+    req.body.pref3 ];
+  const events = await Event.find({
+    categories: {$in: userPreferences}
+  })
+  .catch((err) => console.log(err));
 
   res.status(200).json(events);
 });
