@@ -1,5 +1,5 @@
 import './SignUp.css';
-import { useNavigate } from "react-router-dom";
+
 import { useState } from 'react';
 
 function SignUp() {
@@ -7,14 +7,14 @@ function SignUp() {
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [loggedIn, setLoggedIn] = useState(false)
   const [isHost, setIsHost] = useState(false)
-  const navigate = useNavigate()
+  
 
 
   
 
 
+  // create an account
   function handleSubmit () {
     fetch('/api/create-account' + new URLSearchParams({
       firstName: firstName,
@@ -25,11 +25,11 @@ function SignUp() {
     }))
     .then(response => response.json()).
     then(() => {
-      navigate('/')
+      window.location.href = '/Home';
     })
     .catch(() =>
       {
-       navigate('/')
+       // error handling
        
       }
     )
@@ -39,7 +39,8 @@ function SignUp() {
   
   
   return (
-    <div className='main_container'>
+    <div className='main_containr'>
+      
       <h1 className='heading'> Make An Account! </h1>
        <form className='main_container' onSubmit={handleSubmit}>
         

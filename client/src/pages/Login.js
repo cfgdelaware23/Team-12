@@ -1,5 +1,4 @@
 import './Login.css';
-import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 
 
@@ -8,7 +7,7 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
-  const navigate = useNavigate()
+ 
 
 
   
@@ -20,12 +19,12 @@ function Login() {
       password: password,
   }))
     .then(response => response.json()).then(() => {
-      navigate('/')
+      window.location.href = '/Home';
     })
     .catch(() =>
       {
-       //setLoggedIn(false)
-       navigate('/')
+       setLoggedIn(false)
+       
        
       }
     )
