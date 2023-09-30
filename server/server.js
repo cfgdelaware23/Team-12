@@ -162,3 +162,8 @@ app.post("/volunteer", async (req, res) => {
     res.status(200);
   }
 });
+
+// Recommendations
+app.post("/recommendations", async (req, res) => {
+  
+})
