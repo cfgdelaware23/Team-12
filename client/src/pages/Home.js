@@ -67,38 +67,6 @@ function Home() {
   // });
   // get recommended user events
 
-  useEffect(() => {
-    // Fetch the total volunteer hours
-    fetch("/api/volunteer-hours")
-      .then((response) => response.json())
-      .then((data) => {
-        setTotalVolunteerHours(data.totalHours);
-      })
-      .catch((error) => {
-        //console.error(error);
-      });
-
-    // Fetch the total number of events
-    fetch("/api/total-events")
-      .then((response) => response.json())
-      .then((data) => {
-        setTotalEvents(data.totalEvents);
-      })
-      .catch((error) => {
-        //console.error(error);
-      });
-
-    // Fetch the total number of users
-    fetch("/api/total-users")
-      .then((response) => response.json())
-      .then((data) => {
-        setTotalUsers(data.totalUsers);
-      })
-      .catch((error) => {
-        //console.error(error);
-      });
-  }, []);
-
   // useEffect(() => {
   //   // Fetch the total volunteer hours
   //   fetch('/api/volunteer-hours')
