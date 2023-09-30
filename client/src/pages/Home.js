@@ -1,6 +1,8 @@
 import './Home.css';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar/navbar';
+import Calendar from '../components/calendar';
+
 import React, { useState, useEffect } from 'react';
 
 function Home() {
@@ -46,7 +48,6 @@ function Home() {
       <div className="dashboard">
         <div className="dashboardCards">
           <h2> Number of Events: {totalEvents}</h2>
-
         </div>
         <div className="dashboardCards">
           <h2> Number of Users: {totalUsers} </h2>
@@ -54,8 +55,9 @@ function Home() {
         <div className="dashboardCards">
           <h2> Number of Volunteer Hours: {totalVolunteerHours} </h2>
         </div>
-
       </div>
+      <Calendar /> 
+
     </>
   );
 }
