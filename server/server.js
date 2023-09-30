@@ -170,4 +170,15 @@ app.post("/recommendations", async (req, res) => {
 })
 
 // email list
+app.post("/emaillist", async (req, res) => {
+  // email object that contains the email as well as params for sending
+  const emailBody = { emailAddress, email };
 
+  // check if the incoming data is even an email
+  if (!email) {
+    return res.status(400).json({ "Error: Not an email "})
+  } 
+
+  // return email body if it's an email
+  return res.status(200).json(emailBody)
+})
