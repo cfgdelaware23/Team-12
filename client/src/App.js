@@ -13,6 +13,10 @@ import VolunteerSignUp from './pages/VolunteerSignUp'
 import CreateEvent from './pages/CreateEvent'
 import Profile from './pages/Profile'
 import EmailGenerator from './pages/EmailGeneration'
+import EventData from './pages/EventData'
+
+import Email from './pages/Email'
+
 function App() {
 return (
 <div className="App">
@@ -26,6 +30,9 @@ return (
 <Route path="/CreateEvent" element={<CreateEvent />}/>
 <Route path="/Profile" element={<Profile />}/>
 <Route path="/EmailGenerator" element={<EmailGenerator />}/>
+<Route path="/EventData" element={<EventData />}/>
+
+<Route path="/Email" element={<Email />}/>
 </Routes>
 </div>
 </BrowserRouter>

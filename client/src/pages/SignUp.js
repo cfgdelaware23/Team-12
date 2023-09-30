@@ -4,6 +4,7 @@ import logo from "../pages/images/logo.png";
 import { useState } from "react";
 
 function SignUp() {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
