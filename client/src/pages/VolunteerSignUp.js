@@ -1,8 +1,8 @@
 import './VolunteerSignUp.css';
-
+import Card from '../components/Card/Card'
 function VolunteerSignUp() {
   return (
- <h1>VolunteerSignUp Page</h1>
+    <Card/>
   );
 }
 
