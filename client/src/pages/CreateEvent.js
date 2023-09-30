@@ -78,6 +78,7 @@ const handleStartTime = (event) =>
             
         }
        console.log(hour+"HOUR")
+       adjustTime()
         setForm({ ...form, timeStart: hour});
      
     
@@ -201,6 +202,7 @@ const handleTag = (event) =>
          try {
           const response = await fetch("http://localhost:3001/planevent ", options);
           const result = await response.json();
+          window.location.href = '/';
        console.log(result);
         } catch (err) {
            console.log(err);
