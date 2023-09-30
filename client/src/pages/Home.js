@@ -22,6 +22,7 @@ function Home() {
     .then((response) => response.json())
     .then((data) => {
       // set user preferences
+      console.log(data.categories)
       setUserPreferences(data.categories)
       // post request for recommendation api
       const options = {

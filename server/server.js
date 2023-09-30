@@ -72,6 +72,7 @@ app.post("/signup", async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
+        categories: req.body.categories,
         password: hash,
         isHost: req.body.isHost,
         totalHours: 0,

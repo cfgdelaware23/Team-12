@@ -64,6 +64,7 @@ function SignUp() {
         firstName: firstName,
         lastName: lastName,
         isHost: isHost,
+        categories: selections,
       });
       console.log(newUser);
   
