@@ -44,19 +44,26 @@ function Home() {
   return (
     <> 
       <Navbar /> 
-      <h1>Home Page</h1>
       <div className="dashboard">
+      <h1>Dashboard</h1>
+      <div class = "row">
         <div className="dashboardCards">
           <h2> Number of Events: {totalEvents}</h2>
+          <h3> {totalEvents} </h3>
         </div>
         <div className="dashboardCards">
-          <h2> Number of Users: {totalUsers} </h2>
+          <h2> Number of Users:  </h2>
+          <h3> {totalUsers} </h3>
         </div>
         <div className="dashboardCards">
-          <h2> Number of Volunteer Hours: {totalVolunteerHours} </h2>
+          <h2> Number of Volunteer Hours:  </h2>
+          <h3> {totalVolunteerHours} </h3>
         </div>
       </div>
+      </div>
+      <div class="calendar">
       <Calendar /> 
+      </div>
 
     </>
   );

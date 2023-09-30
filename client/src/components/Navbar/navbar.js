@@ -4,7 +4,9 @@ import './navbar.css'
 function navbar() {
     return (
     <header>
-    <div className="container">
+    
+    <div className="sidebar">
+    <p> Visionary Advocates </p>
               <Link to="/" onClick = {() => {window.location.href="/"}} > Home </Link>
               <Link to="/Login" onClick = {() => {window.location.href="/Login"}} > Login </Link>
               <Link to="SignUp" onClick = {() => {window.location.href="/SignUp"}} > Sign Up </Link>

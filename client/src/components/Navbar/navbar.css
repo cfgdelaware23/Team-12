@@ -1,0 +1,28 @@
+.sidebar{
+    margin:0;
+    padding:0;
+    width:200px;
+    background-color: #2F0C82;
+    position: fixed;
+    height:100%;
+    overflow:auto;
+    text-align: right;
+    font-weight: bolder;
+
+}
+
+
+.sidebar a {
+    display: block;
+    color: white;
+    padding: 16px;
+    text-decoration: none;
+}
+
+
+p{
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    font-weight: bolder;
+}
