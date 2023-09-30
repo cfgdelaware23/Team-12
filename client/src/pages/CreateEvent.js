@@ -7,7 +7,7 @@ function CreateEvent() {
 const user = localStorage.getItem('user')
 const cur_date = new Date()
 const [form, setForm] = useState({date:cur_date,name: "",timeStart: 0.0,timeEnd: 30.0,url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[],desc:""});
-const [canSubmit,setSubmit] = useState(false)
+
 
 async function adjustTime() {
 

@@ -1,9 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Onest");
-/* :root {
-    --navbar-width: 200px;
-    --color-light: #fff;
-    background-color: #2F0C82;
-  } */
+
   * {
     margin: 0;
     padding: 0;
@@ -12,12 +8,17 @@
     
   }
 
-  .container {
+  .profile-container {
     display: flex;
     box-shadow: 0px 0px 15px 0.2px #2F0C82 ;
     height: 600px;
   }
-  
+  .calendar-profile{
+    margin-left: 0px;
+    padding: 0px 16px;
+    height: 100%;
+    text-align: center;
+  }
   .all{
     height: 100vh;
     width: 100vw;
@@ -26,6 +27,7 @@
     align-items: center;
     padding: 0px 50px;
     overflow: hidden;
+    padding-left: 275px
     
   }
   main {
@@ -77,7 +79,7 @@
   }
   li:hover {
     letter-spacing: 1px;
-    color: var(--color-light);
+    color: white;
     font-weight: 800;
   }
   li::before {

@@ -4,6 +4,7 @@ import logo from "../pages/images/logo.png";
 import { useState } from "react";
 
 function SignUp() {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -35,7 +36,7 @@ function SignUp() {
       const response = await fetch("http://localhost:3001/signup", options);
       const result = await response.json();
       console.log(result);
-      window.location.href = '/';
+      window.location.href = '/login';
     } catch (err) {
       console.log(err);
       console.log("there was an error ");

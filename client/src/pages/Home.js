@@ -62,7 +62,7 @@ function Home() {
       </div>
       </div>
       <div class="calendar">
-      <Calendar /> 
+        <Calendar /> 
       </div>
 
     </>
