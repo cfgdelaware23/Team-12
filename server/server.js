@@ -74,7 +74,7 @@ app.post("/signup", async (req, res) => {
         email: req.body.email,
         password: hash,
         isHost: req.body.isHost,
-        totalHours: 0,
+        totalHours: 10,
       });
       newUser.save();
       console.log("Account successfully created");
@@ -107,6 +107,7 @@ app.post("/planevent", (req, res) => {
     eventName: req.body.eventName,
   });
   newEvent.save();
+  res.status(200).json({ message: successful });
   console.log("Event successfully added");
 });
 
@@ -116,13 +117,13 @@ app.post("/checkevent", async (req, res) => {
     endTime: req.body.endTime,
     date: req.body.date,
   };
-  const matchingDates = await Movie.find({ date: interval.date });
+  const matchingDates = await Event.find({ date: newEventInterval.date });
   matchingDates.forEach((event) => {
     const startTime = event.startTime;
     const endTime = event.endTime;
     if (
-      newEventInterval.endTime > startTime &&
-      newEventInterval.startTime < endTime
+      newEventInterval.endTime >= startTime &&
+      newEventInterval.startTime <= endTime
     ) {
       res.status(200).json({ conflict: true });
     }
@@ -180,4 +181,13 @@ app.post("/volunteer", async (req, res) => {
     );
     res.status(200);
   }
+});
+
+app.get("/totalhours", async (req, res) => {
+  const volunteers = await User.find({});
+  let sum = 0;
+  volunteers.forEach((user) => {
+    sum = sum + user.totalHours;
+  });
+  res.status(200).json({ totalHours: sum });
 });
