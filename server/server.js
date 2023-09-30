@@ -1,10 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
+const cors = require("cors");
 require("dotenv/config");
+const Event = require("./Event.js");
+const User = require("./User.js");
 
 const app = express();
 
-let user = { email: "" };
+let user = { email: "", totalHours: 10 };
 
 mongoose
   .connect(process.env.DB_CONNECTION)
@@ -17,8 +22,20 @@ mongoose
   })
   .catch((err) => console.log(err));
 
+app.use(cors());
+
+app.use(bodyParser.json());
+
+// Parse URL-encoded form data
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
   res.send("hello");
+});
+
+app.post("/test", (req, res) => {
+  console.log(req.body);
+  res.status(200).send("hello");
 });
 
 app.post("/signin", async (req, res) => {
@@ -27,8 +44,8 @@ app.post("/signin", async (req, res) => {
     const match = await bcrypt.compare(req.body.password, response.password);
     if (match) {
       console.log("match");
-      user = { email: req.body.email };
-      res.status(200).json({});
+      user = { email: response.email, totalHours: response.totalHours };
+      res.status(200).json({ status: 200 });
     } else {
       console.log("wrong pass");
       res.status(404).send({
@@ -44,6 +61,7 @@ app.post("/signin", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
+  console.log("request", req.body);
   const response = await User.findOne({ email: req.body.email });
   if (response === null) {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
@@ -56,6 +74,7 @@ app.post("/signup", async (req, res) => {
         email: req.body.email,
         password: hash,
         isHost: req.body.isHost,
+        totalHours: 0,
       });
       newUser.save();
       console.log("Account successfully created");
@@ -72,7 +91,9 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/planevent", (req, res) => {
+app.post("/planevent", async (req, res) => {
+  const hours = Math.abs(req.body.endTime - req.body.startTime);
+  console.log("differnce in hours:", hours);
   const newEvent = new Event({
     host: user.email,
     mod: req.body.mod,
@@ -88,6 +109,15 @@ app.post("/planevent", (req, res) => {
     eventName: req.body.eventName,
   });
   newEvent.save();
+  console.log("users total hours:", user.totalHours);
+  console.log("difference in hours", hours);
+  const newHours = user.totalHours + hours;
+  const response = await User.findOneAndUpdate(
+    { email: user.email },
+    { totalHours: newHours }
+  );
+  user = { email: user.email, totalHours: newHours };
+  res.status(200).json({ message: "successful" });
   console.log("Event successfully added");
 });
 
@@ -97,13 +127,13 @@ app.post("/checkevent", async (req, res) => {
     endTime: req.body.endTime,
     date: req.body.date,
   };
-  const matchingDates = await Movie.find({ date: interval.date });
+  const matchingDates = await Event.find({ date: newEventInterval.date });
   matchingDates.forEach((event) => {
     const startTime = event.startTime;
     const endTime = event.endTime;
     if (
-      newEventInterval.endTime > startTime &&
-      newEventInterval.startTime < endTime
+      newEventInterval.endTime >= startTime &&
+      newEventInterval.startTime <= endTime
     ) {
       res.status(200).json({ conflict: true });
     }
@@ -163,6 +193,7 @@ app.post("/volunteer", async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 // Recommendations page
 app.post("/recommendations", async (req, res) => {
   // logic
@@ -183,3 +214,30 @@ app.post("/emaillist", async (req, res) => {
   return res.status(200).json(emailBody)
 })
 
+=======
+app.get("/totalhours", async (req, res) => {
+  const volunteers = await User.find({});
+  let sum = 0;
+  volunteers.forEach((user) => {
+    sum = sum + user.totalHours;
+  });
+  res.status(200).json({ totalHours: sum });
+});
+
+app.get("/user", (req, res) => {
+  if (user.email != "") {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json({ message: "no user logged in" });
+  }
+});
+
+app.get("/getuser", async (req, res) => {
+  if (user.email != "") {
+    const response = await User.findOne({ email: user.email });
+    res.status(200).send(response);
+  } else {
+    res.status(404);
+  }
+});
+>>>>>>> b73d6612ad0bba6a667c8e1226124bd8035aff78

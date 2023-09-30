@@ -1,31 +1,24 @@
 @import url("https://fonts.googleapis.com/css?family=Onest");
-:root {
-    --navbar-width: 400px;
-    --color-light: #fff;
-  }
+
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Onest";
+    
   }
-  
-  /* body {
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0px 50px;
-    overflow: hidden;
-  } */
-  
-  .container {
+
+  .profile-container {
     display: flex;
     box-shadow: 0px 0px 15px 0.2px #2F0C82 ;
     height: 600px;
   }
-  
+  .calendar-profile{
+    margin-left: 0px;
+    padding: 0px 16px;
+    height: 100%;
+    text-align: center;
+  }
   .all{
     height: 100vh;
     width: 100vw;
@@ -34,6 +27,7 @@
     align-items: center;
     padding: 0px 50px;
     overflow: hidden;
+    padding-left: 275px
     
   }
   main {
@@ -41,14 +35,14 @@
   }
   
   aside {
-    width: var(--navbar-width);
+    width: 200px;
     height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .navbar {
-    width: 100%;
+    width: 50%;
     align-items: center;
   }
   .logo {
@@ -57,7 +51,12 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+    padding-bottom: 20px;
 
+  }
+
+  .name{
+    padding-bottom: 20px;
   }
   .logo img {
     height: 100%;
@@ -80,7 +79,7 @@
   }
   li:hover {
     letter-spacing: 1px;
-    color: var(--color-light);
+    color: white;
     font-weight: 800;
   }
   li::before {
@@ -120,10 +119,12 @@
     justify-content: center; 
   }
   .card .content {
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
     font-size: 1.5rem;
     color: black;
     align-items: center; 
-    justify-content: center; 
   }
 
   .card.active.home .content {
@@ -160,7 +161,6 @@
   span { font-weight: bold; }
  
   .select {
-    background: white;
     color: black;
     font-weight: 400;
   }
