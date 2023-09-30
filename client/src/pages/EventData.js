@@ -1,6 +1,6 @@
 import './EventData.css';
 import Navbar from '../components/Navbar/navbar';
-
+import { useState} from 'react'
 function EventData() {
     const [events, setEvents] = useState([]);
 
@@ -22,7 +22,7 @@ function EventData() {
           }
         }
         fetchData();
-      }
+      
 
     return(
         <>
@@ -43,7 +43,7 @@ function EventData() {
     </div>
     </>
     )
-    
+}
 
 
 export default EventData;
