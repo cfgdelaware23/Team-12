@@ -162,3 +162,9 @@ app.post("/volunteer", async (req, res) => {
     res.status(200);
   }
 });
+
+// Recommendations page
+app.post("/recommendations", async (req, res) => {
+  // logic
+  
+})
