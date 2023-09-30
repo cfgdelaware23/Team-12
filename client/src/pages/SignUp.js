@@ -23,13 +23,40 @@ function SignUp() {
     e.preventDefault();
 
     var selectedCounter = 0;
+    const selections = [];
     // checks if only three options are selected
-    if (isSocial) selectedCounter++;
-    if (isEducational) selectedCounter++;
-    if (isReligion) selectedCounter++;
-    if (isHealth) selectedCounter++;
-    if (isTech) selectedCounter++;
-    if (isArt) selectedCounter++;
+    if (isSocial) 
+    {
+      selectedCounter++;
+      selections.push("Social")
+    }
+    if (isEducational) 
+    {
+      selectedCounter++;
+      selections.push("Education")
+    }
+    if (isReligion) 
+    {
+      selectedCounter++;
+      selections.push("Religion")
+    }
+    if (isHealth){
+      
+        selectedCounter++;
+        selections.push("Health")
+      
+    }
+
+    if (isTech)
+    {
+      selectedCounter++;
+      selections.push("Technology")
+    }
+    if (isArt) {
+      selectedCounter++;
+      selections.push("Art")
+    }
+
     if (selectedCounter === 3){
       const newUser = JSON.stringify({
         email: email,
@@ -110,42 +137,64 @@ function SignUp() {
         
       </div>
 
+      <h1> Pick 3 topics</h1>
         <div className="horizontal_stack">
-          <input
-            className="input"
-            type="checkbox"
-            onChange={() => setIsEducational((prev) => !prev)}
-          ></input>
+          <div className="vertical_name_stack">
+            <div className="vertical_name_stack">
+              <label className='input_heading'> Education </label>
+              <input
+              className="input"
+              type="checkbox"
+              onChange={() => setIsEducational((prev) => !prev)}
+            ></input>
+            </div>
+          </div>
 
-          <input
+          <div className="vertical_name_stack">
+              <label className='input_heading'> Technology </label>
+              <input
             className="input"
             type="checkbox"
             onChange={() => setIsTech((prev) => !prev)}
           ></input>
+          </div>
 
-          <input
+          <div className="vertical_name_stack">
+              <label className='input_heading'> Art </label>
+              <input
             className="input"
             type="checkbox"
             onChange={() => setIsArt((prev) => !prev)}
           ></input>
+          </div>
 
-          <input
+          <div className="vertical_name_stack">
+              <label className='input_heading'> Health </label>
+              <input
             className="input"
             type="checkbox"
             onChange={() => setIsHealth((prev) => !prev)}
           ></input>
+          </div>
 
-          <input
+
+          <div className="vertical_name_stack">
+              <label className='input_heading'> Religion </label>
+              <input
             className="input"
             type="checkbox"
             onChange={() => setIsReligion((prev) => !prev)}
           ></input>
+          </div>
 
-          <input
+          <div className="vertical_name_stack">
+              <label className='input_heading'> Social </label>
+              <input
             className="input"
             type="checkbox"
             onChange={() => setIsSocial((prev) => !prev)}
           ></input>
+          </div>
 
         </div>
 
