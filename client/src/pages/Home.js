@@ -15,10 +15,21 @@ function Home() {
   
   
 
+  const options = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    body: JSON.stringify({
+      email: "abcd@gmail.com"
+    }),
+  };
 
   // get user preferences & find recommended events
   useEffect(() => {
-    fetch('api/getUserPreferences')
+    fetch('http://localhost:3001/getUserPreferences', options)
     .then((response) => response.json())
     .then((data) => {
       // set user preferences
@@ -32,7 +43,9 @@ function Home() {
           Accept: "application/json",
           "Content-Type": "application/json;charset=UTF-8",
         },
-        body: userPreferences,
+        body: JSON.stringify({
+          categories: userPreferences
+        }),
       };
       // fetch recommendation api
       fetch('http://localhost:3001/signup', options)
@@ -64,7 +77,7 @@ function Home() {
         setTotalVolunteerHours(data.totalHours);
       })
       .catch((error) => {
-        console.error(error);
+        //console.error(error);
       });
 
     // Fetch the total number of events
@@ -74,7 +87,7 @@ function Home() {
         setTotalEvents(data.totalEvents);
       })
       .catch((error) => {
-        console.error(error);
+        //console.error(error);
       });
 
     // Fetch the total number of users 
@@ -84,7 +97,7 @@ function Home() {
         setTotalUsers(data.totalUsers);
       })
       .catch((error) => {
-        console.error(error);
+        //console.error(error);
       });
   }, [])
   return (
