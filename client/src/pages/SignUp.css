@@ -92,6 +92,17 @@ h1.heading {
  
 }
 
+.horizontal_stack {
+  color: black;
+  border-color: transparent;
+  border-width: 2px;
+  padding: 4px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 .vertical_name_stack {
   color: black;
   border-color: transparent;
