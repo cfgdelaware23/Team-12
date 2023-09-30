@@ -2,7 +2,7 @@ import "./SignUp.css";
 import logo from "../pages/images/logo.png";
 
 import { useState } from "react";
-
+import axios from "axios";
 function SignUp() {
   
   const [email, setEmail] = useState("");
@@ -87,6 +87,7 @@ function SignUp() {
 
         //const result = await response.json();
         //console.log(result);
+        localStorage.setItem('user', email);
         window.location.href = '/';
       } catch (err) {
         console.log(err);
