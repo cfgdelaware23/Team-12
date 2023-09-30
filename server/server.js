@@ -33,9 +33,8 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 
-app.post("/test", (req, res) => {
-  console.log(req.body);
-  res.status(200).send("hello");
+app.get("/test", (req, res) => {
+  res.send("hello");
 });
 
 app.post("/signin", async (req, res) => {
@@ -134,9 +133,10 @@ app.post("/checkevent", async (req, res) => {
     const startTime = event.startTime;
     const endTime = event.endTime;
     if (
-      newEventInterval.endTime >= startTime &&
-      newEventInterval.endTime <= endTime || newEventInterval.startTime <= endTime &&
-      newEventInterval.startTime <= startTime
+      (newEventInterval.endTime >= startTime &&
+        newEventInterval.endTime <= endTime) ||
+      (newEventInterval.startTime <= endTime &&
+        newEventInterval.startTime <= startTime)
     ) {
       res.status(200).json({ conflict: true });
     }
@@ -236,12 +236,11 @@ app.post("/volunteer", async (req, res) => {
 //   // check if the incoming data is even an email
 //   if (!email) {
 //     return res.status(400).json({ "Error: Not an email "})
-//   } 
+//   }
 
 //   // return email body if it's an email
 //   return res.status(200).json(emailBody)
 // })
-
 
 app.get("/totalhours", async (req, res) => {
   const volunteers = await User.find({});
@@ -259,13 +258,3 @@ app.get("/user", (req, res) => {
     res.status(404).json({ message: "no user logged in" });
   }
 });
-
-app.get("/getuser", async (req, res) => {
-  if (user.email != "") {
-    const response = await User.findOne({ email: user.email });
-    res.status(200).send(response);
-  } else {
-    res.status(404);
-  }
-});
-
