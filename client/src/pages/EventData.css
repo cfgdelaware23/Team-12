@@ -2,17 +2,27 @@
     margin-left: 200px;
     padding: 1px 16px;
     height: 100%;
-    text-align: left;
+    text-align: center;
 }
 
 thead{
     margin-top: 50px;
     width: 100%;
     border-collapse: collapse;
+
 }
 
-table, td, th {
-    border: 1px solid;
+table{
+    width: 100%;
+    background-color: white;
+    
 }
+
+thead, tbody, td, th {
+    border: 1px solid;
+
+}
+
+
 
 
