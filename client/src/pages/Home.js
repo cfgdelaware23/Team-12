@@ -10,7 +10,8 @@ function Home() {
   const [totalEvents, setTotalEvents] = useState(50000);
   const [totalUsers, setTotalUsers] = useState(2);
   const [recommendedEvents, setRecommendedEvents] = useState([]);
-  // const queryRecommendedEvents = JSON.stringify(
+  
+  //const queryRecommendedEvents = JSON.stringify(
   //   {
   //       query1: 
   //       query2:
@@ -32,7 +33,7 @@ function Home() {
       // or if length is less than 10, then all recommended
       // events are presented
       if (recommendedEvents.length > 5){
-        startingValue = Math.random(0, recommendedEvents.length-5)
+        var startingValue = Math.random(0, recommendedEvents.length-5)
         setRecommendedEvents(recommendedEvents.slice(startingValue, startingValue + 5))
       }
     }).catch((error) => {

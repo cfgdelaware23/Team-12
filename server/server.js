@@ -136,6 +136,18 @@ app.get("/getEvents", async (req, res) => {
   res.status(200).json(events);
 });
 
+// get events
+app.post("/getRecommmendedEvents", async (req, res) => {
+  const userPreferences = [ req.body.pref1, req.body.pref2, 
+    req.body.pref3 ];
+  const events = await Event.find({
+    categories: {$in: userPreferences}
+  })
+  .catch((err) => console.log(err));
+
+  res.status(200).json(events);
+});
+
 app.get("/getEmptyEvents", async (req, res) => {
   const emptyEvents = await Event.find({
     $or: [
