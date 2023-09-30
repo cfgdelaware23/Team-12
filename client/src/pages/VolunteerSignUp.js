@@ -6,7 +6,7 @@ function VolunteerSignUp() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    fetch('/getEmptyEvents')
+    fetch('localhost:3000/getEmptyEvents')
       .then((response) => response.json())
       .then((data) => {
        
