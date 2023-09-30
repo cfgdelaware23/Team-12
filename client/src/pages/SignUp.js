@@ -64,7 +64,7 @@ function SignUp() {
         firstName: firstName,
         lastName: lastName,
         isHost: isHost,
-        categories: selections,
+        categories: JSON.stringify(selections),
       });
       console.log(newUser);
   
@@ -78,9 +78,14 @@ function SignUp() {
         body: newUser,
       };
       try {
+        
+        console.log("test1")
         const response = await fetch("http://localhost:3001/signup", options);
-        const result = await response.json();
-        console.log(result);
+        console.log("test2")
+        console.log(response.json)
+
+        //const result = await response.json();
+        //console.log(result);
         window.location.href = '/';
       } catch (err) {
         console.log(err);

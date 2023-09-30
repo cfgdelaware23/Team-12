@@ -48,10 +48,11 @@ function Home() {
         }),
       };
       // fetch recommendation api
-      fetch('http://localhost:3001/signup', options)
+      fetch('http://localhost:3001/getUserPreferences', options)
         .then((response) => response.json())
         .then((data) => {
           setRecommendedEvents(data.events)
+          console.log(recommendedEvents.length)
           // generates random range of 10 events to be presented
           // or if length is less than 10, then all recommended
           // events are presented

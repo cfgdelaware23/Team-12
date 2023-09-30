@@ -80,9 +80,10 @@ app.post("/signup", async (req, res) => {
       newUser.save();
       console.log("Account successfully created");
     });
-    res
-      .status(200)
-      .json({ message: "Account successfully created", status: 200 });
+   
+    // res
+    //   .status(200)
+    //   .json({ message: "Account successfully created", status: 200 });
   } else {
     console.log("Account creation unsuccessful");
     res.status(404).json({
@@ -139,20 +140,28 @@ app.get("/getEvents", async (req, res) => {
 
 // locate user preferences based on email
 app.post("/getUserPreferences", async (req, res) => {
-  const response = await User.findOne({ email: req.body.email });
-  if (response !== null) {
-    user = { email: req.body.email };
-    res.status(200).json({
-      response: categories
-    });
-    } 
-   else {
-    console.log("not found");
-    res.status(404).send({
-      error: "auth failed",
-    });
+  try {
+    const response = await User.findOne({ email: req.body.email });
+    if (response !== null) {
+      user = { email: req.body.email };
+      res.status(200).json({
+        response: categories
+      });
+      } 
+     else {
+      console.log("not found");
+      res.status(404).send({
+        error: "auth failed",
+      });
+    }
   }
+  catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+  res.status(200).send("Test");
 });
+  
 
 
 
