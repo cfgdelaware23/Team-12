@@ -1,0 +1,165 @@
+@import url("https://fonts.googleapis.com/css?family=Onest");
+:root {
+    --navbar-width: 400px;
+    --color-light: #fff;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Onest";
+  }
+  
+  body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 50px;
+    overflow: hidden;
+  }
+  
+  .container {
+    display: flex;
+    box-shadow: 0px 0px 15px 0.2px #2F0C82 ;
+    height: 600px;
+  }
+  
+  main {
+    overflow: hidden;
+  }
+  
+  aside {
+    width: var(--navbar-width);
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .navbar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+  .logo {
+    height: 150px;
+    width: 150px;
+  }
+  .logo img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+  }
+  nav,
+  ul {
+    width: 100%;
+    text-align: center;
+  }
+  li {
+    list-style: none;
+    padding: 15px 10px;
+    position: relative;
+    letter-spacing: 0px;
+    cursor: pointer;
+    transition: all 300ms ease-in-out;
+    transform: translateY(0px);
+  }
+  li:hover {
+    letter-spacing: 1px;
+    color: var(--color-light);
+    font-weight: 800;
+  }
+  li::before {
+    content: "";
+    background: #2F0C82 ;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0%;
+    z-index: -1;
+    transition: width 300ms ease;
+  }
+  
+  li:hover::before {
+    width: 100%;
+  }
+  .card {
+    height: 600px;
+    padding: 30px;
+    display: none;
+    width: calc(100vw - 500px);
+    color: var(--color-light);
+    transform: translateX(-100%);
+    align-items: center; 
+    justify-content: center; 
+  }
+  .card.active {
+    display: block;
+    animation: slide 500ms ease-in-out both;
+  }
+  .card .title {
+    font-size: 2rem;
+    border-bottom: 1px solid #ccc;
+    color: black;
+    align-items: center; 
+    justify-content: center; 
+  }
+  .card .content {
+    font-size: 1.5rem;
+    color: black;
+    align-items: center; 
+    justify-content: center; 
+  }
+
+  .card.active.home .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+  }
+
+  .box {
+    background-color: #2F0C82;
+    color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 5px;
+    width: 250px; /* Adjust the width as needed */
+    text-align: center;
+    border-radius: 15px;
+    align-items: center; 
+    justify-content: center; 
+  }
+  
+  .home {
+    background: #2F0C82 ;
+  }
+  .about {
+    background: #11b4d1;
+  }
+
+  .mary{
+    font-weight: bolder;
+  }
+
+  span { font-weight: bold; }
+ 
+  .select {
+    background: white;
+    color: black;
+    font-weight: 400;
+  }
+  @keyframes slide {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+  }
