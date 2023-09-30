@@ -18,6 +18,7 @@ function Profile() {
   };
 
   return (
+    <div class = "all">
     <div className="container">
       <aside>
         <div className="navbar">
@@ -67,6 +68,7 @@ function Profile() {
           <div className="content">*Insert here*</div>
         </div>
       </main>
+    </div>
     </div>
   );
 }

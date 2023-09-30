@@ -26,6 +26,16 @@
     height: 600px;
   }
   
+  .all{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 50px;
+    overflow: hidden;
+    
+  }
   main {
     overflow: hidden;
   }
@@ -39,14 +49,15 @@
   }
   .navbar {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
     align-items: center;
   }
   .logo {
     height: 150px;
     width: 150px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
   }
   .logo img {
     height: 100%;
