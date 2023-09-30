@@ -153,6 +153,9 @@ app.post("/getUserPreferences", async (req, res) => {
   }
 });
 
+
+
+
 // get events
 app.post("/getRecommmendedEvents", async (req, res) => {
   const userPreferences = [ req.body.pref1, req.body.pref2, 
