@@ -4,6 +4,8 @@ require("dotenv/config");
 
 const app = express();
 
+let user = { email: "" };
+
 mongoose
   .connect(process.env.DB_CONNECTION)
   .then((result) => {
@@ -25,12 +27,8 @@ app.post("/signin", async (req, res) => {
     const match = await bcrypt.compare(req.body.password, response.password);
     if (match) {
       console.log("match");
-
-      res.status(200).json({
-        email: response.email,
-        apiKey: response.apiKey,
-        registrationDate: response.registrationDate,
-      });
+      user = { email: req.body.email };
+      res.status(200).json({});
     } else {
       console.log("wrong pass");
       res.status(404).send({
@@ -52,17 +50,19 @@ app.post("/signup", async (req, res) => {
       if (err) {
         console.log(err);
       }
-
-      // wait for schema
       const newUser = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
         password: hash,
-        registrationDate: new Date().toString(),
+        isHost: req.body.isHost,
       });
       newUser.save();
       console.log("Account successfully created");
     });
-    res.status(200).json({ message: "it worked", status: 200 });
+    res
+      .status(200)
+      .json({ message: "Account successfully created", status: 200 });
   } else {
     console.log("Account creation unsuccessful");
     res.status(404).json({
@@ -72,28 +72,8 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-// app.post("/planevent", async (req, res) => {
-//     const response = await User.findOne({ email: req.body.email });
-//     if (response !== null) {
-//       const match = await bcrypt.compare(req.body.password, response.password);
-//       if (match) {
-//         console.log("match");
-
-//         res.status(200).json({
-//           email: response.email,
-//           apiKey: response.apiKey,
-//           registrationDate: response.registrationDate,
-//         });
-//       } else {
-//         console.log("wrong pass");
-//         res.status(404).send({
-//           error: "auth failed",
-//         });
-//       }
-//     } else {
-//       console.log("not found");
-//       res.status(404).send({
-//         error: "auth failed",
-//       });
-//     }
-//   });
+app.post("/planevent", async (req, res) => {
+  const newEvent = new Event({
+    host: req.body.host,
+  });
+});
