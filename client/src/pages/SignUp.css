@@ -21,7 +21,7 @@ h1 {
   align-items: center;
   justify-content: center;
   height: 10vh; 
-  width: 40vw; 
+  
   margin-bottom: 10px;
   
 }
@@ -102,5 +102,34 @@ h1.heading {
   align-items: center;
   justify-content: center;
 }
+
+.horizontal_stack {
+  color: black;
+  border-color: transparent;
+  border-width: 2px;
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.input[type="checkbox"] {
+  
+  margin: 0 5px; 
+  padding: 0;
+ 
+  width: 15vw; 
+  height: 10vh; 
+}
+
+
+.input[type="checkbox"]::-webkit-input-placeholder {
+  border: none;
+}
+
+
+
+
 
 
