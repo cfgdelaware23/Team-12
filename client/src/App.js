@@ -12,6 +12,8 @@ import SignUp from './pages/SignUp'
 import VolunteerSignUp from './pages/VolunteerSignUp'
 import CreateEvent from './pages/CreateEvent'
 import Profile from './pages/Profile'
+import Email from './pages/Email'
+
 function App() {
 return (
 <div className="App">
@@ -24,6 +26,7 @@ return (
 <Route path="/VolunteerSignUp" element={<VolunteerSignUp />}/>
 <Route path="/CreateEvent" element={<CreateEvent />}/>
 <Route path="/Profile" element={<Profile />}/>
+<Route path="/Email" element={<Email />}/>
 </Routes>
 </div>
 </BrowserRouter>

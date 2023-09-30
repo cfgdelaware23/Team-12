@@ -14,6 +14,7 @@ return (
 <Link to="/CreateEvent" onClick = {() => {window.location.href="/CreateEvent"}} > Create Event </Link>
 <Link to="/VolunteerSignUp" onClick = {() => {window.location.href="/VolunteerSignUp"}} > Volunteer Sign Up </Link>
 <Link to="/Profile" onClick = {() => {window.location.href="/Profile"}} > Profile </Link>
+<Link to="/Email" onClick = {() => {window.location.href="/Email"}} > Email </Link>
 </div>
 </div>
 </header>
