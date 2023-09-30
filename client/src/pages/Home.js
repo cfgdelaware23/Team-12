@@ -10,36 +10,48 @@ function Home() {
   const [totalEvents, setTotalEvents] = useState(50000);
   const [totalUsers, setTotalUsers] = useState(2);
   const [recommendedEvents, setRecommendedEvents] = useState([]);
+  const [userPreferences, setUserPreferences] = useState([]);
   
-  //const queryRecommendedEvents = JSON.stringify(
-  //   {
-  //       query1: 
-  //       query2:
-  //       query3:
-
-
-  //   }
-  // );
+  
   
 
 
-  // get recommended user events
+  // get user preferences & find recommended events
   useEffect(() => {
-    fetch('api/recommend-events').then((response) => response.json())
+    fetch('api/getUserPreferences')
+    .then((response) => response.json())
     .then((data) => {
-      setRecommendedEvents(data.events)
-
-      // generates random range of 10 events to be presented
-      // or if length is less than 10, then all recommended
-      // events are presented
-      if (recommendedEvents.length > 5){
-        var startingValue = Math.random(0, recommendedEvents.length-5)
-        setRecommendedEvents(recommendedEvents.slice(startingValue, startingValue + 5))
-      }
-    }).catch((error) => {
-      console.error(error)
+      // set user preferences
+      setUserPreferences(data.categories)
+      // post request for recommendation api
+      const options = {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+        body: userPreferences,
+      };
+      // fetch recommendation api
+      fetch('http://localhost:3001/signup', options)
+        .then((response) => response.json())
+        .then((data) => {
+          setRecommendedEvents(data.events)
+          // generates random range of 10 events to be presented
+          // or if length is less than 10, then all recommended
+          // events are presented
+          if (recommendedEvents.length > 5){
+            var startingValue = Math.random(0, recommendedEvents.length-5)
+            setRecommendedEvents(recommendedEvents.slice(startingValue, startingValue + 5))
+          }
+      }).catch((error) => {
+        console.error(error)
+      })
     })
   })
+  // get recommended user events
+  
 
 
   
