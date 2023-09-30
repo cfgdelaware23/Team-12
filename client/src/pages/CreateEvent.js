@@ -1,7 +1,7 @@
 import './CreateEvent.css';
 import {useState} from 'react'
 function CreateEvent() {
-const [form, setForm] = useState({name: "",timeStart: 0,timeEnd: 0,url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[]});
+const [form, setForm] = useState({name: "",timeStart: 0,timeEnd: 30,url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[]});
 
 const checkTime = ()=>
 {
@@ -12,7 +12,7 @@ const handleStartTime = (event) =>
    
    
     const comps = event.target.value.split('-');
-    
+    console.log(comps+" "+comps.length)
     //base of 9 AM
    let hour = parseInt(comps[0])
             if(hour < 9)
@@ -23,15 +23,19 @@ const handleStartTime = (event) =>
             else
             {
                 console.log(hour)
-                hour =hour-9*60
+                hour =(hour-9)*60
 
             }
         if(comps.length === 3)
         {
-            hour+=30;
+            console.log("AYYO")
+            
+            hour = hour + 30
+            console.log("HOUR"+hour)
         }
+        console.log("HOUR NOW"+hour)
         setForm({ ...form, 'timeStart': hour });
-     console.log(form.timeStart)
+     console.log("START",form.timeStart)
     
 
 
@@ -42,6 +46,7 @@ const handleEndTime = (event) =>
     const comps = event.target.value.split('-');
  
     //base of 9 AM
+    console.log(comps+" "+comps.length)
    let hour = parseInt(comps[0])
             if(hour < 9)
             {
