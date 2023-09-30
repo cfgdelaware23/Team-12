@@ -2,7 +2,7 @@ import "./SignUp.css";
 import logo from "../pages/images/logo.png";
 
 import { useState } from "react";
-import axios from "axios";
+
 function SignUp() {
   
   const [email, setEmail] = useState("");

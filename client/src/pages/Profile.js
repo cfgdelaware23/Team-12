@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import Navbar from "../components/Navbar/navbar";
 import Calendar from "../components/calendar";
-import axios from "axios";
 //import { Calendar } from 'rsuite';
 //import 'rsuite/dist/rsuite-no-reset.min.css';
 
