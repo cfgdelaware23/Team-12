@@ -1,46 +1,106 @@
 h1 {
-    color: black;
-    text-align: center;
+  color: black;
+  text-align: center;
 
-  }
-  .main_container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-    padding: 10px;
-  }
+}
+.main_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #E4DFDA;
+  background-repeat:repeat;
+}
 
-  .input {
-    color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 10vh; 
-    width: 90vw; 
-    padding: 10;
-  }
+.input {
+  color: black;
+  border-color: transparent;
+  border-width: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 10vh; 
+  width: 40vw; 
+  margin-bottom: 50px;
   
+}
 
 
-  .input_heading {
-    color: black;
-    font-size: 50px;
-    padding: 25px;
-    
-  }
+
+.input_heading {
+  color: black;
+  font-size: 50px;
+  align-self: flex-center;
+  font-weight: 1000;
+
+  
+}
 
 
-  .submit_button {
-    padding: 25px;
-    width: 90vw;
-  }
+.submit_button {
+  padding: 25px;
+  width: 90vw;
+  background-color: #2F0C82;
+  color: white;
+  border-radius: 5px;
+}
 
-  .heading {
-    color: black;
-    font-size: 50px;
-   
-    
-  }
+h1.heading {
+  background-color: transparent;
+  color: white;
+  font-size: 50px;
+ 
+  
+}
+
+.header_bar {
+  background-color: #2F0C82;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: start;
+  height: 20vh;
+  width: 100vw;
+  margin-top: -10px;
+  
+}
+
+
+.logo {
+  height: 20vh;
+  margin-right: 27.5vw;
+  
+}
+
+::placeholder {
+  color: white;
+  opacity: 1; 
+  
+}
+
+
+.name_entry {
+  color: black;
+  border-color: transparent;
+  border-width: 2px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+ 
+}
+
+.vertical_name_stack {
+  color: black;
+  border-color: transparent;
+  border-width: 2px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+

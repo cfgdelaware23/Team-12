@@ -1,4 +1,6 @@
 import './SignUp.css';
+import logo from '../pages/images/logo.png';
+
 
 import { useState } from 'react';
 
@@ -40,42 +42,51 @@ function SignUp() {
   
   return (
     <div className='main_containr'>
+      <div className='header_bar'>
+        <img src={logo} className='logo'></img>
+        <h1 className='heading'> Create An Account </h1>
+      </div>
       
-      <h1 className='heading'> Make An Account! </h1>
        <form className='main_container' onSubmit={handleSubmit}>
         
-        <label className='input_heading'> First Name </label>
-        <input className='input' type='text' 
+        <div className='name_entry'>
+          <div className='vertical_name_stack'>
+            <label className='input_heading'> First Name </label>
+            <input className='input' type='text' 
               id='firstName' name='firstName' placeholder='Jane'
-              onChange={
-                (e) => setFirstName(e.target.value)}></input>
+              onChange={(e) => setFirstName(e.target.value)}></input>
+          </div>
+          <div className='vertical_name_stack'>
+            <label className='input_heading'> Last Name </label>
+            <input className='input' type='text' 
+            name='lastName' placeholder='Jane'
+            onChange={(e) => setLastName(e.target.value)}></input>
+          </div>
+        </div>
 
-
-      <label className='input_heading'> Last Name </label>
-              <input className='input' type='text' 
-                     name='lastName' placeholder='Jane'
-                    onChange={
-                      (e) => setLastName(e.target.value)}></input>
-         
-         
-          <label className='input_heading'> Email </label>
-          <input className='input'id='email' name='email' placeholder='enter email'
-          onChange={
-            (e) => setEmail(e.target.value)} type="email"></input>
-  
-          <label className='input_heading'> Password </label>
-          <input className='input' type='password' 
-            id='password' name='password' placeholder='enter password'
-            onChange={
-              (e) => setPassword(e.target.value)}></input>
-
-          <label className='input_heading'> Host? </label>
+        <div className='name_entry'>
+          <div className='vertical_name_stack'>
+            <label className='input_heading'> Email </label>
+            <input className='input'id='email' name='email' placeholder='enter email'
+            onChange={(e) => setEmail(e.target.value)} type="email"></input>
+          </div>
+          <div className='vertical_name_stack'>
+            <label className='input_heading'> Password </label>
+            <input className='input' type='password' 
+              id='password' name='password' placeholder='enter password'
+              onChange={(e) => setPassword(e.target.value)}></input>
+          </div>
+        </div >
+        
+        <div className='name_entry'>
+        <label className='input_heading'> Check if you are a host:  </label>
           <input className='input' type='checkbox' 
-             placeholder='enter password'
             onChange={
               (e) => setIsHost(e.target.value)}></input>
-
-          <input className='submit_button' type="submit" value="Submit"></input>
+          
+        </div>
+        <input className='submit_button' type="submit" value="Submit"></input>
+         
        </form>
 
        
