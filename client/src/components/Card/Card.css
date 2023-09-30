@@ -1,7 +1,6 @@
-.container
+.card
 {
-    align-self: center;
-    align-content: center;
+   
     height: 300px;
     width:80%;
     background-color: rgb(156, 198, 213);
