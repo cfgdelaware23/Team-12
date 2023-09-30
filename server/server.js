@@ -198,12 +198,14 @@ app.post("/volunteer", async (req, res) => {
 // email list
 app.post("/emaillist", async (req, res) => {
   // email object that contains the email as well as params for sending
-  const emailBody = { emailAddress, email };
+  const { emailAddress, email } = req.body;
 
   // check if the incoming data is even an email
-  if (!email) {
+  if (!emailAddress) {
     return res.status(400).json({ "Error: Not an email "})
   } 
+
+  const emailBody = { emailAddress, email };
 
   // return email body if it's an email
   return res.status(200).json(emailBody)
