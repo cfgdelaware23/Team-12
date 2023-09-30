@@ -35,6 +35,7 @@ function SignUp() {
       const response = await fetch("http://localhost:3001/signup", options);
       const result = await response.json();
       console.log(result);
+      window.location.href = '/';
     } catch (err) {
       console.log(err);
       console.log("there was an error ");
