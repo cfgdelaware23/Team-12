@@ -33,9 +33,8 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 
-app.post("/test", (req, res) => {
-  console.log(req.body);
-  res.status(200).send("hello");
+app.get("/test", (req, res) => {
+  res.send("hello");
 });
 
 app.post("/signin", async (req, res) => {
@@ -72,6 +71,7 @@ app.post("/signup", async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
+        categories: req.body.categories,
         password: hash,
         isHost: req.body.isHost,
         totalHours: 0,
@@ -79,9 +79,10 @@ app.post("/signup", async (req, res) => {
       newUser.save();
       console.log("Account successfully created");
     });
-    res
-      .status(200)
-      .json({ message: "Account successfully created", status: 200 });
+
+    // res
+    //   .status(200)
+    //   .json({ message: "Account successfully created", status: 200 });
   } else {
     console.log("Account creation unsuccessful");
     res.status(404).json({
@@ -132,8 +133,10 @@ app.post("/checkevent", async (req, res) => {
     const startTime = event.startTime;
     const endTime = event.endTime;
     if (
-      newEventInterval.endTime >= startTime &&
-      newEventInterval.startTime <= endTime
+      (newEventInterval.endTime >= startTime &&
+        newEventInterval.endTime <= endTime) ||
+      (newEventInterval.startTime <= endTime &&
+        newEventInterval.startTime <= startTime)
     ) {
       res.status(200).json({ conflict: true });
     }
@@ -143,6 +146,38 @@ app.post("/checkevent", async (req, res) => {
 
 app.get("/getEvents", async (req, res) => {
   const events = await Event.find().catch((err) => console.log(err));
+
+  res.status(200).json(events);
+});
+
+// locate user preferences based on email
+app.post("/getUserPreferences", async (req, res) => {
+  try {
+    const response = await User.findOne({ email: req.body.email });
+    if (response !== null) {
+      user = { email: req.body.email };
+      res.status(200).json({
+        response: categories,
+      });
+    } else {
+      console.log("not found");
+      res.status(404).send({
+        error: "auth failed",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+  res.status(200).send("Test");
+});
+
+// get events
+app.post("/getRecommmendedEvents", async (req, res) => {
+  const userPreferences = [req.body.pref1, req.body.pref2, req.body.pref3];
+  const events = await Event.find({
+    categories: { $in: userPreferences },
+  }).catch((err) => console.log(err));
 
   res.status(200).json(events);
 });
@@ -194,26 +229,25 @@ app.post("/volunteer", async (req, res) => {
 });
 
 
-
-// email list
 app.post("/emaillist", async (req, res) => {
   // email object that contains the email as well as params for sending
   const { emailAddress, email } = req.body;
 
   // check if the incoming data is even an email
   if (!emailAddress) {
+
     return res.status(400).json({ "Error: Not an email "})
+
+   res.status(404).json({ error: "Not an email "})
+
   } 
 
   const emailBody = { emailAddress, email };
 
   // return email body if it's an email
-  return res.status(200).json(emailBody)
+   res.status(200).json(emailBody);
 })
 
-=======
-=======
->>>>>>> main
 app.get("/totalhours", async (req, res) => {
   const volunteers = await User.find({});
   let sum = 0;
@@ -230,18 +264,3 @@ app.get("/user", (req, res) => {
     res.status(404).json({ message: "no user logged in" });
   }
 });
-
-app.get("/getuser", async (req, res) => {
-  if (user.email != "") {
-    const response = await User.findOne({ email: user.email });
-    res.status(200).send(response);
-  } else {
-    res.status(404);
-  }
-});
-
-// Recommendations
-app.post("/recommendations", async (req, res) => {
-  
-})
-
