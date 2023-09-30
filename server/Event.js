@@ -15,6 +15,7 @@ const eventSchema = new mongoos.schema({
   url: { type: String, required: true },
   categories: { type: [String] },
   eventName: { type: String, required: true },
+  volunteers: { type: String },
 });
 
 module.exports = mongoose.model("Event", eventSchema);
