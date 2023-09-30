@@ -1,6 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
+const cors = require("cors");
 require("dotenv/config");
+const Event = require("./Event.js");
+const User = require("./User.js");
 
 const app = express();
 
@@ -17,8 +22,20 @@ mongoose
   })
   .catch((err) => console.log(err));
 
+app.use(cors());
+
+app.use(bodyParser.json());
+
+// Parse URL-encoded form data
+app.use(bodyParser.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
   res.send("hello");
+});
+
+app.post("/test", (req, res) => {
+  console.log(req.body);
+  res.status(200).send("hello");
 });
 
 app.post("/signin", async (req, res) => {
@@ -28,7 +45,7 @@ app.post("/signin", async (req, res) => {
     if (match) {
       console.log("match");
       user = { email: req.body.email };
-      res.status(200).json({});
+      res.status(200).json({ status: 200 });
     } else {
       console.log("wrong pass");
       res.status(404).send({
@@ -44,6 +61,7 @@ app.post("/signin", async (req, res) => {
 });
 
 app.post("/signup", async (req, res) => {
+  console.log("request", req.body);
   const response = await User.findOne({ email: req.body.email });
   if (response === null) {
     bcrypt.hash(req.body.password, 10, (err, hash) => {
@@ -56,6 +74,7 @@ app.post("/signup", async (req, res) => {
         email: req.body.email,
         password: hash,
         isHost: req.body.isHost,
+        totalHours: 10,
       });
       newUser.save();
       console.log("Account successfully created");
@@ -88,6 +107,7 @@ app.post("/planevent", (req, res) => {
     eventName: req.body.eventName,
   });
   newEvent.save();
+  res.status(200).json({ message: successful });
   console.log("Event successfully added");
 });
 
@@ -97,13 +117,13 @@ app.post("/checkevent", async (req, res) => {
     endTime: req.body.endTime,
     date: req.body.date,
   };
-  const matchingDates = await Movie.find({ date: interval.date });
+  const matchingDates = await Event.find({ date: newEventInterval.date });
   matchingDates.forEach((event) => {
     const startTime = event.startTime;
     const endTime = event.endTime;
     if (
-      newEventInterval.endTime > startTime &&
-      newEventInterval.startTime < endTime
+      newEventInterval.endTime >= startTime &&
+      newEventInterval.startTime <= endTime
     ) {
       res.status(200).json({ conflict: true });
     }
@@ -161,4 +181,13 @@ app.post("/volunteer", async (req, res) => {
     );
     res.status(200);
   }
+});
+
+app.get("/totalhours", async (req, res) => {
+  const volunteers = await User.find({});
+  let sum = 0;
+  volunteers.forEach((user) => {
+    sum = sum + user.totalHours;
+  });
+  res.status(200).json({ totalHours: sum });
 });
