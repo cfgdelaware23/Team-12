@@ -9,44 +9,65 @@ function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [isHost, setIsHost] = useState(false);
+  const [isSocial, setIsSocial] = useState(false);
+  const [isEducational, setIsEducational] = useState(false);
+  const [isReligion, setIsReligion] = useState(false);
+  const [isHealth, setIsHealth] = useState(false);
+  const [isTech, setIsTech] = useState(false);
+  const [isArt, setIsArt] = useState(false);
+
+  
 
   // create an account
   async function handleSubmit(e) {
     e.preventDefault();
-    const newUser = JSON.stringify({
-      email: email,
-      password: password,
-      firstName: firstName,
-      lastName: lastName,
-      isHost: isHost,
-    });
-    console.log(newUser);
 
-    const options = {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json;charset=UTF-8",
-      },
-      body: newUser,
-    };
-    try {
-      const response = await fetch("http://localhost:3001/signup", options);
-      const result = await response.json();
-      console.log(result);
-      window.location.href = '/';
-    } catch (err) {
-      console.log(err);
-      console.log("there was an error ");
+    var selectedCounter = 0;
+    // checks if only three options are selected
+    if (isSocial) selectedCounter++;
+    if (isEducational) selectedCounter++;
+    if (isReligion) selectedCounter++;
+    if (isHealth) selectedCounter++;
+    if (isTech) selectedCounter++;
+    if (isArt) selectedCounter++;
+    if (selectedCounter === 3){
+      const newUser = JSON.stringify({
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        isHost: isHost,
+      });
+      console.log(newUser);
+  
+      const options = {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json;charset=UTF-8",
+        },
+        body: newUser,
+      };
+      try {
+        const response = await fetch("http://localhost:3001/signup", options);
+        const result = await response.json();
+        console.log(result);
+        window.location.href = '/';
+      } catch (err) {
+        console.log(err);
+        console.log("there was an error ");
+      }
+
     }
+
+
   }
 
   return (
     <div className="main_containr">
-      <h1 className="heading"> Make An Account! </h1>
       <form className="main_container" onSubmit={handleSubmit}>
-        <label className="input_heading"> First Name </label>
+      <label className="input_heading"> First Name </label>
         <input
           className="input"
           type="text"
@@ -92,6 +113,46 @@ function SignUp() {
           placeholder="enter password"
           onChange={() => setIsHost((prev) => !prev)}
         ></input>
+
+
+        <div className="horizontal_stack">
+          <input
+            className="input"
+            type="checkbox"
+            onChange={() => setIsEducational((prev) => !prev)}
+          ></input>
+
+          <input
+            className="input"
+            type="checkbox"
+            onChange={() => setIsTech((prev) => !prev)}
+          ></input>
+
+          <input
+            className="input"
+            type="checkbox"
+            onChange={() => setIsArt((prev) => !prev)}
+          ></input>
+
+          <input
+            className="input"
+            type="checkbox"
+            onChange={() => setIsHealth((prev) => !prev)}
+          ></input>
+
+          <input
+            className="input"
+            type="checkbox"
+            onChange={() => setIsReligion((prev) => !prev)}
+          ></input>
+
+          <input
+            className="input"
+            type="checkbox"
+            onChange={() => setIsSocial((prev) => !prev)}
+          ></input>
+
+        </div>
 
         <input className="submit_button" type="submit" value="Submit"></input>
       </form>
