@@ -2,7 +2,7 @@
 
 const mongoose = require("mongoose");
 
-const eventSchema = new mongoos.schema({
+const eventSchema = new mongoose.Schema({
   host: { type: String },
   mod: { type: String },
   streamer: { type: String },
