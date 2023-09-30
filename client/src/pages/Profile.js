@@ -24,7 +24,7 @@ function Profile() {
     <>
     <Navbar /> 
     <div class = "all">
-    <div className="container">
+    <div className="profile-container">
       <aside>
         <div className="navbar">
           <div className="logo">

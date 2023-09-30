@@ -9,7 +9,7 @@ const User = require("./User.js");
 
 const app = express();
 
-let user = { email: "" };
+let user = { email: "", totalHours: 10 };
 
 mongoose
   .connect(process.env.DB_CONNECTION)
@@ -44,7 +44,7 @@ app.post("/signin", async (req, res) => {
     const match = await bcrypt.compare(req.body.password, response.password);
     if (match) {
       console.log("match");
-      user = { email: req.body.email };
+      user = { email: response.email, totalHours: response.totalHours };
       res.status(200).json({ status: 200 });
     } else {
       console.log("wrong pass");
@@ -91,7 +91,9 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/planevent", (req, res) => {
+app.post("/planevent", async (req, res) => {
+  const hours = Math.abs(req.body.endTime - req.body.startTime);
+  console.log("differnce in hours:", hours);
   const newEvent = new Event({
     host: user.email,
     mod: req.body.mod,
@@ -107,6 +109,15 @@ app.post("/planevent", (req, res) => {
     eventName: req.body.eventName,
   });
   newEvent.save();
+  console.log("users total hours:", user.totalHours);
+  console.log("difference in hours", hours);
+  const newHours = user.totalHours + hours;
+  const response = await User.findOneAndUpdate(
+    { email: user.email },
+    { totalHours: newHours }
+  );
+  user = { email: user.email, totalHours: newHours };
+  res.status(200).json({ message: "successful" });
   console.log("Event successfully added");
 });
 
@@ -116,13 +127,13 @@ app.post("/checkevent", async (req, res) => {
     endTime: req.body.endTime,
     date: req.body.date,
   };
-  const matchingDates = await Movie.find({ date: interval.date });
+  const matchingDates = await Event.find({ date: newEventInterval.date });
   matchingDates.forEach((event) => {
     const startTime = event.startTime;
     const endTime = event.endTime;
     if (
-      newEventInterval.endTime > startTime &&
-      newEventInterval.startTime < endTime
+      newEventInterval.endTime >= startTime &&
+      newEventInterval.startTime <= endTime
     ) {
       res.status(200).json({ conflict: true });
     }
@@ -179,5 +190,22 @@ app.post("/volunteer", async (req, res) => {
       { broadcaster: user.email }
     );
     res.status(200);
+  }
+});
+
+app.get("/totalhours", async (req, res) => {
+  const volunteers = await User.find({});
+  let sum = 0;
+  volunteers.forEach((user) => {
+    sum = sum + user.totalHours;
+  });
+  res.status(200).json({ totalHours: sum });
+});
+
+app.get("/user", (req, res) => {
+  if (user.email != "") {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json({ message: "no user logged in" });
   }
 });
