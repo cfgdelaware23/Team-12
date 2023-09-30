@@ -44,7 +44,7 @@ function VolunteerSignUp() {
     console.log(err);
     console.log("there was an error ");
   }
-
+  window.location.href = '/';
 }
 
 
@@ -70,19 +70,19 @@ async function handleFac(event)
     
     console.log("test1")
     const response = await fetch("http://localhost:3001/volunteer", options);
-    window.location.href = '/';
+   
   } catch (err) {
     console.log(err);
     console.log("there was an error ");
   }
-
+  window.location.href = '/';
 }
 
 async function handleMod(event)
 {
   const newVol = JSON.stringify({
     eventID : event._id,
-    role : 'moderator',
+    role : 'mod',
   });
   console.log(newVol);
 
@@ -99,11 +99,11 @@ async function handleMod(event)
     
     console.log("test1")
     const response = await fetch("http://localhost:3001/volunteer", options);
-    window.location.href = '/';
+    
   } catch (err) {
     console.log(err);
     console.log("there was an error ");
-  }
+  }window.location.href = '/';
 
 }
 
@@ -126,14 +126,14 @@ async function handleStream(event)
   };
   try {
     
-    console.log("test1")
+    
     const response = await fetch("http://localhost:3001/volunteer", options);
-    window.location.href = '/';
+   
   } catch (err) {
     console.log(err);
     console.log("there was an error ");
   }
-
+  window.location.href = '/Home';
 }
 return (
   <div className="options">
@@ -152,7 +152,7 @@ return (
         {event.streamer === "" && (
           <button className = "vol" onClick={() => handleStream(event)}>Streamer @ {event.startTime}-{event.endTime}</button>
         )}
-        {event.moderator === "" && (
+        {event.mod === "" && (
           <button className = "vol" onClick={() => handleMod(event)}>Moderator @ {event.startTime}-{event.endTime}</button>
         )}
       </div>

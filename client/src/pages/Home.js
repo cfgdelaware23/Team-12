@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar/navbar";
 import Calendar from "../components/calendar";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo} from "react";
 
 function Home() {
   const [totalVolunteerHours, setTotalVolunteerHours] = useState(0);
   const [totalEvents, setTotalEvents] = useState(0);
-  const [totalUsers, setTotalUsers] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0)
   // const [recommendedEvents, setRecommendedEvents] = useState([]);
   // const [userPreferences, setUserPreferences] = useState([]);
 
