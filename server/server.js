@@ -111,17 +111,13 @@ app.post("/checkevent", async (req, res) => {
   res.status(200).json({ conflict: false });
 });
 
-// getEvents route
-// sends a json of all the events
 app.get("/getEvents", async (req, res) => {
   const events = await Event.find().catch((err) => console.log(err));
 
   res.status(200).json(events);
 });
 
-// getEmptyEvents
 app.get("/getEmptyEvents", async (req, res) => {
-  // find all the attributes that take in a user
   const emptyEvents = await Event.find({
     $or: [
       { host: "" },
@@ -135,5 +131,34 @@ app.get("/getEmptyEvents", async (req, res) => {
     res.status(200).json({ emptyEvents: [] });
   } else {
     res.status(200).json({ emptyEvents: emptyEvents });
+  }
+});
+
+app.post("/volunteer", async (req, res) => {
+  const volunteerInfo = { eventID: req.body.eventID, role: req.body.role };
+  if (volunteerInfo.role === "mod") {
+    const response = await Event.findOneAndUpdate(
+      { _id: volunteerInfo.eventID },
+      { mod: user.email }
+    );
+    res.status(200);
+  } else if (volunteerInfo.role === "facilitator") {
+    const response = await Event.findOneAndUpdate(
+      { _id: volunteerInfo.eventID },
+      { facilitator: user.email }
+    );
+    res.status(200);
+  } else if (volunteerInfo.role === "streamer") {
+    const response = await Event.findOneAndUpdate(
+      { _id: volunteerInfo.eventID },
+      { streamer: user.email }
+    );
+    res.status(200);
+  } else if (volunteerInfo.role === "broadcaster") {
+    const response = await Event.findOneAndUpdate(
+      { _id: volunteerInfo.eventID },
+      { broadcaster: user.email }
+    );
+    res.status(200);
   }
 });
