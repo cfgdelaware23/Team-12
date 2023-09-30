@@ -1,22 +1,76 @@
 import './CreateEvent.css';
 import {useState} from 'react'
 function CreateEvent() {
-const [form, setForm] = useState({name: "",timeStart: "",timeEnd: "",url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[]});
+const [form, setForm] = useState({name: "",timeStart: 0,timeEnd: 0,url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[]});
 
 const checkTime = ()=>
 {
+ //call backend, can this time be done
+}
+const handleStartTime = (event) =>
+{
+   
+   
+    const comps = event.target.value.split('-');
+    
+    //base of 9 AM
+   let hour = parseInt(comps[0])
+            if(hour < 9)
+            {
+                hour+=3;
+               hour =  (hour-9)*60
+            }
+            else
+            {
+                console.log(hour)
+                hour =hour-9*60
 
+            }
+        if(comps.length === 3)
+        {
+            hour+=30;
+        }
+        setForm({ ...form, 'timeStart': hour });
+     console.log(form.timeStart)
+    
+
+
+}
+const handleEndTime = (event) =>
+{
+ 
+    const comps = event.target.value.split('-');
+ 
+    //base of 9 AM
+   let hour = parseInt(comps[0])
+            if(hour < 9)
+            {
+                hour+=3;
+               hour =  (hour-9)*60
+            }
+            else
+            {
+                hour*=60
+
+            }
+        if(comps.length === 3)
+        {
+            hour+=30;
+        }
+        setForm({ ...form, 'timeStart': hour });
+    
+    
 }
 const handleChange = (event) => {
     
     const { name, value } = event.target;
-
     setForm({ ...form, [name]: value });
-    console.log(form[name])
+    
+    
   };
   const handleClick = (event) => {
     
-    console.log(event.target.name)
+    
     const n = event.target.name
     setForm({ ...form, [event.target.name]: !form[n] });
     
@@ -67,7 +121,7 @@ const submitEvent = (event) =>
         <div className = "startTime">
         <label>
           Pick your preferred start time:
-          <select  onChange={handleChange}>
+          <select   onChange={handleStartTime}>
             <option value="9-AM">9:00 AM</option>
             <option value="9-30-AM">9:30 AM</option>
             <option value="10-AM">10:00 AM</option>
@@ -92,7 +146,7 @@ const submitEvent = (event) =>
         <div className = "endTime">
         <label>
         Pick your preferred end time:
-        <select  onChange={handleChange}>
+        <select  onChange={handleEndTime}>
             <option value="9-30-AM">9:30 AM</option>
             <option value="10-AM">10:00 AM</option>
             <option value="10-30-AM">10:30 AM</option>
@@ -132,7 +186,7 @@ const submitEvent = (event) =>
             </div>
         <div className = "tags">Which of these tags apply to your event?
         <label> Academic<input name = "academic" type = "checkbox" onChange ={ handleTag}></input></label>
-        {console.log(form.tags)}
+       
         <label> Social<input name = "social" type = "checkbox" onChange = { handleTag}></input></label>
         <label> Artistic<input name = "artistic" type = "checkbox" onChange = { handleTag}></input></label>
         
