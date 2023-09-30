@@ -72,6 +72,9 @@ app.post("/signup", async (req, res) => {
   }
 });
 
+
+
+
 // app.post("/planevent", async (req, res) => {
 //     const response = await User.findOne({ email: req.body.email });
 //     if (response !== null) {
