@@ -193,12 +193,7 @@ app.post("/volunteer", async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
-// Recommendations page
-app.post("/recommendations", async (req, res) => {
-  // logic
 
-})
 
 // email list
 app.post("/emaillist", async (req, res) => {
@@ -241,3 +236,9 @@ app.get("/getuser", async (req, res) => {
   }
 });
 >>>>>>> b73d6612ad0bba6a667c8e1226124bd8035aff78
+=======
+// Recommendations
+app.post("/recommendations", async (req, res) => {
+  
+})
+>>>>>>> main
