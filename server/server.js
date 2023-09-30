@@ -258,3 +258,8 @@ app.get("/user", (req, res) => {
     res.status(404).json({ message: "no user logged in" });
   }
 });
+
+app.get("/users", async (req, res) => {
+  const response = await User.find({}).catch(err);
+  res.status(200).json({ data: response });
+});
