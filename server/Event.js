@@ -9,7 +9,7 @@ const eventSchema = new mongoose.Schema({
   broadcaster: { type: String },
   description: { type: String, required: true },
   facilitator: { type: String },
-  date: { type: String, required: true },
+  date: { type: Object, required: true },
   startTime: { type: Number, required: true },
   endTime: { type: Number, required: true },
   url: { type: String, required: true },
