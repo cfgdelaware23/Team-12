@@ -1,13 +1,7 @@
 // Creating a goose schema
 const mongoose = require("mongoose");
 
-<<<<<<< HEAD
 const eventSchema = new mongoose.Schema({
-=======
-
-const eventSchema = new mongoose.Schema({
-
->>>>>>> createEvent
   host: { type: String },
   mod: { type: String },
   streamer: { type: String },
