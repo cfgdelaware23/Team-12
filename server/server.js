@@ -251,9 +251,6 @@ app.post("/emaillist", async (req, res) => {
   return res.status(200).json(emailBody)
 })
 
-=======
-=======
->>>>>>> main
 app.get("/totalhours", async (req, res) => {
   const volunteers = await User.find({});
   let sum = 0;
