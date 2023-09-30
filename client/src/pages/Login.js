@@ -1,4 +1,7 @@
 import './Login.css';
+
+import logo from '../pages/images/logo.png';
+
 import { useState } from 'react';
 
 
@@ -8,11 +11,6 @@ function Login() {
   const [password, setPassword] = useState('')
   const [loggedIn, setLoggedIn] = useState(false)
  
-
-
-  
-
-
   function handleSubmit() {
     fetch('/api/signin' + new URLSearchParams({
       email: email,
@@ -30,11 +28,14 @@ function Login() {
     )
   }
   
-  
-  
   return (
     <div className='main_container'>
-      <h1 className='heading'> Log In </h1>
+      <div className='header_bar'>
+        <img src={logo} className='logo'></img>
+        <h1 className='heading'> Log In </h1>
+
+      </div>
+      
        <form className='main_container' onSubmit={handleSubmit}>
           <label className='input_heading'> Email </label>
           <input className='input'id='email' name='email' placeholder='enter email'
