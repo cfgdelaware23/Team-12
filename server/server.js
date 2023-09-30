@@ -45,7 +45,7 @@ app.post("/signin", async (req, res) => {
     if (match) {
       console.log("match");
       user = { email: req.body.email };
-      res.status(200).json({});
+      res.status(200).json({ status: 200 });
     } else {
       console.log("wrong pass");
       res.status(404).send({
