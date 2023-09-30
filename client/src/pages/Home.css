@@ -27,6 +27,7 @@ h1{
     margin: 10px;
     height: 300px;
     background-color: white;
+    padding-top: 80px;
     border-radius: 20px;
     text-align: center;
 }

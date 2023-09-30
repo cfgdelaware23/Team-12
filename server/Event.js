@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 
 
 const eventSchema = new mongoose.Schema({
-
   host: { type: String },
   mod: { type: String },
   streamer: { type: String },
@@ -14,7 +13,7 @@ const eventSchema = new mongoose.Schema({
   date: { type: Object, required: true },
   startTime: { type: Number, required: true },
   endTime: { type: Number, required: true },
-  url: { type: String, required: true },
+  url: { type: String },
   categories: { type: [String] },
   eventName: { type: String, required: true },
   volunteers: { type: String },
