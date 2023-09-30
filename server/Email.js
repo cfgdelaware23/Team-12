@@ -3,13 +3,7 @@
 const mongoose = require("mongoose");
 
 const emailSchema = new mongoos.schema({
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-  userType: { type: Number, required: true },
-  isHost: { type: Boolean, required: true },
-  totalHours: { type: Number, required: true },
+  eventHappening: { type: event, type: boolean, required: true },
   
 });
 
