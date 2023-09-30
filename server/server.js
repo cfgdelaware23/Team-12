@@ -209,3 +209,8 @@ app.get("/user", (req, res) => {
     res.status(404).json({ message: "no user logged in" });
   }
 });
+
+app.get("/getuser",async (req,res)=>{
+  const response = await User.findOne({email: user.email})
+  res.status(200).send(response);
+})
