@@ -21,7 +21,7 @@ h1 {
   align-items: center;
   justify-content: center;
   height: 10vh; 
-  
+  width: 40vw; 
   margin-bottom: 10px;
   
 }
@@ -103,16 +103,7 @@ h1.heading {
   justify-content: center;
 }
 
-.horizontal_stack {
-  color: black;
-  border-color: transparent;
-  border-width: 2px;
-  padding: 0px;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
+
 
 .input[type="checkbox"] {
   
