@@ -6,7 +6,7 @@ function navbar() {
 return (
 <header>
 <div className="sidebar">
-<p> Visionary Advocates </p>
+<p> Sensory Scheduler </p>
 <div className="sidebar-buttons">
 <Link  to="/" onClick = {() => {window.location.href="/"}} > Home </Link>
 <Link  to="/Login" onClick = {() => {window.location.href="/Login"}} > Login </Link>
