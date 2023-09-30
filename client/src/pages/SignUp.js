@@ -83,7 +83,7 @@ function SignUp() {
         console.log("test1")
         const response = await fetch("http://localhost:3001/signup", options);
         console.log("test2")
-        console.log(response.json)
+        //console.log(response.json)
 
         //const result = await response.json();
         //console.log(result);
