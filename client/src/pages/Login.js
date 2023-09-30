@@ -4,6 +4,8 @@ import logo from "../pages/images/logo.png";
 
 import { useState } from "react";
 
+import axios from "axios";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +31,8 @@ function Login() {
       const result = await response.json();
       // result should give status code, based on status code handle login
       console.log(result);
+      localStorage.setItem('user', email);
+      console.log(localStorage.getItem('user'));
       window.location.href = '/';
     } catch (err) {
       console.log(err);

@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import "./Profile.css";
 import Navbar from "../components/Navbar/navbar";
 import Calendar from "../components/calendar";
-
+import axios from "axios";
 //import { Calendar } from 'rsuite';
 //import 'rsuite/dist/rsuite-no-reset.min.css';
 
 import pic from "./images/headshot.jpg";
 
 function Profile() {
+  const email = localStorage.getItem("user");
+  console.log(email);
   const [showProfile, setShowProfile] = useState(true);
   const [data, setData] = useState([]);
 
@@ -78,7 +80,7 @@ function Profile() {
               <div className="content">
                 <div className="box">Address</div>
                 <div className="box">Phone Number</div>
-                <div className="box">Email</div>
+                <div className="box">Email: {email}</div>
                 <div className="box">Interests</div>
                 <div className="box">Member since ...</div>
                 <div className="box">
