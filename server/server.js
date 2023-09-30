@@ -210,6 +210,8 @@ app.post("/emaillist", async (req, res) => {
 })
 
 =======
+=======
+>>>>>>> main
 app.get("/totalhours", async (req, res) => {
   const volunteers = await User.find({});
   let sum = 0;
@@ -235,10 +237,9 @@ app.get("/getuser", async (req, res) => {
     res.status(404);
   }
 });
->>>>>>> b73d6612ad0bba6a667c8e1226124bd8035aff78
-=======
+
 // Recommendations
 app.post("/recommendations", async (req, res) => {
   
 })
->>>>>>> main
+
