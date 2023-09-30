@@ -1,4 +1,5 @@
 import "./SignUp.css";
+import logo from "../pages/images/logo.png";
 
 import { useState } from "react";
 
