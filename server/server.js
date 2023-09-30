@@ -127,13 +127,13 @@ app.post("/checkevent", async (req, res) => {
     endTime: req.body.endTime,
     date: req.body.date,
   };
-  const matchingDates = await Event.find({ date: interval.date });
+  const matchingDates = await Event.find({ date: newEventInterval.date });
   matchingDates.forEach((event) => {
     const startTime = event.startTime;
     const endTime = event.endTime;
     if (
-      newEventInterval.endTime > startTime &&
-      newEventInterval.startTime < endTime
+      newEventInterval.endTime >= startTime &&
+      newEventInterval.startTime <= endTime
     ) {
       res.status(200).json({ conflict: true });
     }
