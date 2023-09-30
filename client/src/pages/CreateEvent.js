@@ -1,7 +1,7 @@
 import './CreateEvent.css';
 import {useState} from 'react'
 function CreateEvent() {
-const [form, setForm] = useState({name: "",timeStart: 0,timeEnd: 30,url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[]});
+const [form, setForm] = useState({name: "",timeStart: 0.0,timeEnd: 30.0,url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[]});
 
 const checkTime = ()=>
 {
@@ -12,30 +12,30 @@ const handleStartTime = (event) =>
    
    
     const comps = event.target.value.split('-');
-    console.log(comps+" "+comps.length)
+    console.log(comps+" "+comps.length);
     //base of 9 AM
-   let hour = parseInt(comps[0])
+   let hour = parseInt(comps[0]);
             if(hour < 9)
             {
-                hour+=3;
-               hour =  (hour-9)*60
+                hour+=12;
+               hour =  (hour-9)*60;
             }
             else
             {
-                console.log(hour)
-                hour =(hour-9)*60
+                console.log(hour);
+                hour =(hour-9)*60;
 
             }
         if(comps.length === 3)
         {
-            console.log("AYYO")
             
-            hour = hour + 30
-            console.log("HOUR"+hour)
+            
+            hour = hour + 30;
+            
         }
-        console.log("HOUR NOW"+hour)
-        setForm({ ...form, 'timeStart': hour });
-     console.log("START",form.timeStart)
+       console.log(hour+"HOUR")
+        setForm({ ...form, timeStart: hour});
+     
     
 
 
@@ -50,7 +50,7 @@ const handleEndTime = (event) =>
    let hour = parseInt(comps[0])
             if(hour < 9)
             {
-                hour+=3;
+                hour+=12;
                hour =  (hour-9)*60
             }
             else
@@ -62,8 +62,7 @@ const handleEndTime = (event) =>
         {
             hour+=30;
         }
-        setForm({ ...form, 'timeStart': hour });
-    
+        setForm({ ...form, timeEnd: hour });
     
 }
 const handleChange = (event) => {
