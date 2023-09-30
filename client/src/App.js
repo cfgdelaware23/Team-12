@@ -15,6 +15,8 @@ import Profile from './pages/Profile'
 import EmailGenerator from './pages/EmailGeneration'
 import EventData from './pages/EventData'
 
+import Email from './pages/Email'
+
 function App() {
 return (
 <div className="App">
@@ -30,6 +32,7 @@ return (
 <Route path="/EmailGenerator" element={<EmailGenerator />}/>
 <Route path="/EventData" element={<EventData />}/>
 
+<Route path="/Email" element={<Email />}/>
 </Routes>
 </div>
 </BrowserRouter>
