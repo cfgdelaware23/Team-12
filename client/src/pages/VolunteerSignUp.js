@@ -4,27 +4,95 @@ import './VolunteerSignUp.css';
 
 function VolunteerSignUp() {
   const [cards, setCards] = useState([]);
-
+  const [length, setLength] = useState(0);
+  
   useEffect(() => {
-    fetch('localhost:3000/getEmptyEvents')
+    fetch('http://localhost:3001/getEmptyEvents')
       .then((response) => response.json())
       .then((data) => {
-       
-        setCards((prevCards) => [...prevCards, data]); 
+      
+        setCards((prevCards) => [...prevCards, ...data.emptyEvents]);
+         
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
+  async function handleBroad(event)
+{
+  const newVol = JSON.stringify({
+    eventID : event._id,
+    role : 'broadcaster',
+  });
+  console.log(newVol);
 
-  return (
-    <div className="options">
-      {cards.map((event) => (
-        <h1>{event.desc}</h1>
-      ))}
-    </div>
-  );
+  const options = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    body: newVol,
+  };
+  try {
+    
+    console.log("test1")
+    const response = await fetch("http://localhost:3001/volunteer", options);
+    window.location.href = '/';
+  } catch (err) {
+    console.log(err);
+    console.log("there was an error ");
+  }
+
 }
+
+
+
+async function handleFac(event)
+{
+  const newVol = JSON.stringify({
+    eventID : event._id,
+    role : 'facilitator',
+  });
+  console.log(newVol);
+
+  const options = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json;charset=UTF-8",
+    },
+    body: newVol,
+  };
+  try {
+    
+    console.log("test1")
+    const response = await fetch("http://localhost:3001/volunteer", options);
+    window.location.href = '/';
+  } catch (err) {
+    console.log(err);
+    console.log("there was an error ");
+  }
+
+}
+return (
+  <div className="options">
+    {cards.map((event, index) => (
+      <div key={index} className="register">
+        <h1>{event.eventName}</h1>
+        {event.broadcaster === "" && (
+          <button className = "vol" onClick={() => handleBroad(event)}>Broadcaster @ {event.startTime}-{event.endTime}</button>
+        )}
+        <br></br>
+        {event.facilitator === "" && (
+          <button className = "vol" onClick={() => handleFac(event)}>Facilitator @ {event.startTime}-{event.endTime}</button>
+        )}
+      </div>
+    ))}
+  </div>
+);}
 
 export default VolunteerSignUp;
 
