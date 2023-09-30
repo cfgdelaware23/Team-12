@@ -72,8 +72,41 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/planevent", async (req, res) => {
+app.post("/planevent", (req, res) => {
   const newEvent = new Event({
-    host: req.body.host,
+    host: user.email,
+    mod: req.body.mod,
+    streamer: req.body.streamer,
+    broadcaster: req.body.broadcaster,
+    description: req.body.description,
+    facilitator: req.body.facilitator,
+    date: req.body.date,
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
+    url: req.body.url,
+    categories: req.body.categories,
+    eventName: req.body.eventName,
   });
+  newEvent.save();
+  console.log("Event successfully added");
+});
+
+app.post("/checkevent", async (req, res) => {
+  const newEventInterval = {
+    startTime: req.body.startTime,
+    endTime: req.body.endTime,
+    date: req.body.date,
+  };
+  const matchingDates = await Movie.find({ date: interval.date });
+  matchingDates.forEach((event) => {
+    const startTime = event.startTime;
+    const endTime = event.endTime;
+    if (
+      newEventInterval.endTime > startTime &&
+      newEventInterval.startTime < endTime
+    ) {
+      res.status(200).json({ conflict: true });
+    }
+  });
+  res.status(200).json({ conflict: false });
 });
