@@ -21,7 +21,26 @@ const handleChange = (event) => {
     setForm({ ...form, [event.target.name]: !form[n] });
     
   };
+const handleTag = (event) =>
+{
+    const tag = form.tags
+    if (!tag.includes(event.target.name.toLowerCase()))
+    {
+        tag.push(event.target.name.toLowerCase());
+        setForm({ ...form, 'tags': tag });
+    }
+    else{
+        const rem = [];
 
+        for (let i = 0; i < tag.length; i++) {
+            if (tag[i] !== event.target.name) {
+                rem.push(tag[i]);
+            }
+        }
+        setForm({ ...form, 'tags': rem });
+    }
+    
+}
 const submitEvent = (event) => 
 {
     event.preventDefault();
@@ -111,11 +130,16 @@ const submitEvent = (event) =>
               <option value = "monthly">Once a month at this time</option>
             </select></label>}
             </div>
-        <div className = "tags">Which of these apply to your event:
-            
+        <div className = "tags">Which of these tags apply to your event?
+        <label> Academic<input name = "academic" type = "checkbox" onChange ={ handleTag}></input></label>
+        {console.log(form.tags)}
+        <label> Social<input name = "social" type = "checkbox" onChange = { handleTag}></input></label>
+        <label> Artistic<input name = "artistic" type = "checkbox" onChange = { handleTag}></input></label>
+        
+      
             
             </div> 
-       
+           
     <button className ="submit" onSubmit = {submitEvent}>Submit</button>
 
  </div>
