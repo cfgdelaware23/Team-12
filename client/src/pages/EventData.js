@@ -44,6 +44,6 @@ function EventData() {
     </>
     )
     
-}
+
 
 export default EventData;
