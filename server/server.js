@@ -107,6 +107,7 @@ app.post("/planevent", (req, res) => {
     eventName: req.body.eventName,
   });
   newEvent.save();
+  res.status(200).json({ message: successful });
   console.log("Event successfully added");
 });
 
