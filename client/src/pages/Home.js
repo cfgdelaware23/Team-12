@@ -7,8 +7,8 @@ import React, { useState, useEffect } from "react";
 
 function Home() {
   const [totalVolunteerHours, setTotalVolunteerHours] = useState(0);
-  const [totalEvents, setTotalEvents] = useState(50000);
-  const [totalUsers, setTotalUsers] = useState(2);
+  const [totalEvents, setTotalEvents] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
   // const [recommendedEvents, setRecommendedEvents] = useState([]);
   // const [userPreferences, setUserPreferences] = useState([]);
 
@@ -67,37 +67,37 @@ function Home() {
   // });
   // get recommended user events
 
-  // useEffect(() => {
-  //   // Fetch the total volunteer hours
-  //   fetch('/api/volunteer-hours')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setTotalVolunteerHours(data.totalHours);
-  //     })
-  //     .catch((error) => {
-  //       //console.error(error);
-  //     });
+  useEffect(() => {
+    // Fetch the total volunteer hours
+    fetch("http://localhost:3001/totalhours")
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalVolunteerHours(data.totalHours);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
-  //   // Fetch the total number of events
-  //   fetch('/api/total-events')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setTotalEvents(data.totalEvents);
-  //     })
-  //     .catch((error) => {
-  //       //console.error(error);
-  //     });
+    // Fetch the total number of events
+    fetch("http://localhost:3001/getEvents")
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalEvents(data.length);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
-  //   // Fetch the total number of users
-  //   fetch('/api/total-users')
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       setTotalUsers(data.totalUsers);
-  //     })
-  //     .catch((error) => {
-  //       //console.error(error);
-  //     });
-  // }, [])
+    // Fetch the total number of users
+    fetch("http://localhost:3001/users")
+      .then((response) => response.json())
+      .then((data) => {
+        setTotalUsers(data.length);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
   return (
     <>
       <Navbar />
@@ -113,7 +113,7 @@ function Home() {
             <h3> {totalUsers} </h3>
           </div>
           <div className="dashboardCards">
-            <h2> Number of Volunteer Hours: </h2>
+            <h2> Total of Volunteer Hours: </h2>
             <h3> {totalVolunteerHours} </h3>
           </div>
         </div>
