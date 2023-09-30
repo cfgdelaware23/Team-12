@@ -10,7 +10,7 @@ function SignUp() {
   const [lastName, setLastName] = useState("");
   const [isHost, setIsHost] = useState(false);
   const [isSocial, setIsSocial] = useState(false);
-  const [isEducational, setIsEducational] = useState(false);
+  const [isAcademic, setIsAcademic] = useState(false);
   const [isReligion, setIsReligion] = useState(false);
   const [isHealth, setIsHealth] = useState(false);
   const [isTech, setIsTech] = useState(false);
@@ -30,10 +30,10 @@ function SignUp() {
       selectedCounter++;
       selections.push("Social")
     }
-    if (isEducational) 
+    if (isAcademic) 
     {
       selectedCounter++;
-      selections.push("Education")
+      selections.push("Academic")
     }
     if (isReligion) 
     {
@@ -146,11 +146,11 @@ function SignUp() {
         <div className="horizontal_stack">
           <div className="vertical_name_stack">
             <div className="vertical_name_stack">
-              <label className='input_heading'> Education </label>
+              <label className='input_heading'> Academic </label>
               <input
               className="input"
               type="checkbox"
-              onChange={() => setIsEducational((prev) => !prev)}
+              onChange={() => setIsAcademic((prev) => !prev)}
             ></input>
             </div>
           </div>
