@@ -22,7 +22,7 @@ function Login() {
     .catch(() =>
       {
        setLoggedIn(false)
-       
+       window.location.href = '/Home';
        
       }
     )
