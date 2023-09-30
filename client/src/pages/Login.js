@@ -29,6 +29,7 @@ function Login() {
       const result = await response.json();
       // result should give status code, based on status code handle login
       console.log(result);
+      window.location.href = '/';
     } catch (err) {
       console.log(err);
       console.log("there was an error ");
