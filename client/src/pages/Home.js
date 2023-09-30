@@ -23,7 +23,7 @@ function Home() {
       "Content-Type": "application/json;charset=UTF-8",
     },
     body: JSON.stringify({
-      email: "ashleyjoyetheridge@gmail.com"
+      email: "john.doe@email.com"
     }),
   };
 
@@ -33,7 +33,7 @@ function Home() {
     //.then((response) => response.json())
     .then((data) => {
       // set user preferences
-      console.log(data.categories)
+      console.log(data)
       setUserPreferences(data.categories)
       // post request for recommendation api
       const options = {
@@ -49,7 +49,7 @@ function Home() {
       };
       // fetch recommendation api
       fetch('http://localhost:3001/getUserPreferences', options)
-        .then((response) => response.json())
+        //.then((response) => response.json())
         .then((data) => {
           setRecommendedEvents(data.events)
           console.log(recommendedEvents.length)
