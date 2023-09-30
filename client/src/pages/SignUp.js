@@ -80,7 +80,7 @@ function SignUp() {
         
         <div className='name_entry'>
         <label className='input_heading'> Check if you are a host:  </label>
-          <input className='input' type='checkbox' 
+        <input className='input' type='checkbox' 
             onChange={
               (e) => setIsHost(e.target.value)}></input>
           

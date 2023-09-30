@@ -22,7 +22,7 @@ h1 {
   justify-content: center;
   height: 10vh; 
   width: 40vw; 
-  margin-bottom: 50px;
+  margin-bottom: 10px;
   
 }
 
@@ -39,7 +39,6 @@ h1 {
 
 
 .submit_button {
-  padding: 25px;
   width: 90vw;
   background-color: #2F0C82;
   color: white;
@@ -103,4 +102,5 @@ h1.heading {
   align-items: center;
   justify-content: center;
 }
+
 
