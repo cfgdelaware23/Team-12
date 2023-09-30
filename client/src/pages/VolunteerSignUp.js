@@ -82,7 +82,7 @@ async function handleMod(event)
 {
   const newVol = JSON.stringify({
     eventID : event._id,
-    role : 'mod',
+    role : 'moderator',
   });
   console.log(newVol);
 
@@ -101,7 +101,7 @@ async function handleMod(event)
     const response = await fetch("http://localhost:3001/volunteer", options);
     
   } catch (err) {
-    console.log(err);
+ 
     console.log("there was an error ");
   }window.location.href = '/';
 
@@ -152,7 +152,7 @@ return (
         {event.streamer === "" && (
           <button className = "vol" onClick={() => handleStream(event)}>Streamer @ {event.startTime}-{event.endTime}</button>
         )}
-        {event.mod === "" && (
+        {event.moderator === "" && (
           <button className = "vol" onClick={() => handleMod(event)}>Moderator @ {event.startTime}-{event.endTime}</button>
         )}
       </div>

@@ -262,6 +262,6 @@ app.get("/user", (req, res) => {
 });
 
 app.get("/users", async (req, res) => {
-  const response = await User.find({}).catch(err);
+  const response = await User.find({});
   res.status(200).json({ data: response });
 });
