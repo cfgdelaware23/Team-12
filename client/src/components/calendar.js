@@ -3,12 +3,10 @@ import React from 'react';
 import {Calendar} from 'rsuite';
 import{useState, useEffect} from 'react'
 function MyCalendar() {
-  // fetch event data
-  const [eventData, setEventData] = useState({}); // Store event data in state
-  let date = {};
-  
-  useEffect(() => {
+  const [eventData, setEventData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
     async function fetchData() {
       const options = {
         method: 'GET',
@@ -16,44 +14,56 @@ function MyCalendar() {
       };
       try {
         const response = await fetch('http://localhost:3001/getEvents', options);
-        console.log(response);
         const data = await response.json();
-        let arr = {};
-        setEventData(data[13].date.slice(0,11)); 
-        console.log(eventData);
+        const events = {};
 
+        data.forEach((event) => {
+          const date = event.date.substring(0, 10);
+          const name = event.eventName;
+
+          if (!events[date]) {
+            events[date] = [];
+          }
+
+          events[date].push(name);
+        });
+
+        setEventData(events);
+        setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
-        console.log(eventData);
       }
     }
+
     fetchData();
-
-    const mockEventData = [
-      { date: '2023-09-05', eventName: 'Event 1' },
-      { date: '2023-09-10', eventName: 'Event 2' },
-    ];
-
-    const processedEventData = {};
-    mockEventData.forEach((event) => {
-      processedEventData[event.date] = event.eventName;
-    });
-
   }, []);
 
   const renderCustomCell = (date) => {
     const formattedDate = date.toISOString().split('T')[0];
 
+    if (eventData[formattedDate]) {
+      return (
+        <div className="custom-cell event">
+          {eventData[formattedDate].map((eventName) => (
+            <div key={eventName}>{eventName}</div>
+          ))}
+        </div>
+      );
+    }
+
     return (
-      <div className={`custom-cell ${eventData[formattedDate] ? 'event' : ''}`}>
-        {eventData[formattedDate]}
+      <div className="custom-cell">
       </div>
     );
   };
 
   return (
     <div className="custom-calendar">
-      <Calendar renderCell={renderCustomCell} />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <Calendar renderCell={renderCustomCell} />
+      )}
     </div>
   );
 }
