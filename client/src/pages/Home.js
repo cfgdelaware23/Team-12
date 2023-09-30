@@ -12,7 +12,6 @@ function Home() {
   // const [recommendedEvents, setRecommendedEvents] = useState([]);
   // const [userPreferences, setUserPreferences] = useState([]);
 
-<<<<<<< HEAD
   // const options = {
   //   method: "POST",
   //   mode: "cors",
@@ -24,19 +23,6 @@ function Home() {
   //     email: "abcd@gmail.com",
   //   }),
   // };
-=======
-  const options = {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json;charset=UTF-8",
-    },
-    body: JSON.stringify({
-      email: "ashleyjoyetheridge@gmail.com"
-    }),
-  };
->>>>>>> SelectPreferences
 
   // get user preferences & find recommended events
   // useEffect(() => {
@@ -81,7 +67,6 @@ function Home() {
   // });
   // get recommended user events
 
-<<<<<<< HEAD
   useEffect(() => {
     // Fetch the total volunteer hours
     fetch("/api/volunteer-hours")
@@ -113,11 +98,9 @@ function Home() {
         //console.error(error);
       });
   }, []);
-=======
 
-  
   // useEffect(() => {
-  //   // Fetch the total volunteer hours 
+  //   // Fetch the total volunteer hours
   //   fetch('/api/volunteer-hours')
   //     .then((response) => response.json())
   //     .then((data) => {
@@ -137,7 +120,7 @@ function Home() {
   //       //console.error(error);
   //     });
 
-  //   // Fetch the total number of users 
+  //   // Fetch the total number of users
   //   fetch('/api/total-users')
   //     .then((response) => response.json())
   //     .then((data) => {
@@ -147,7 +130,6 @@ function Home() {
   //       //console.error(error);
   //     });
   // }, [])
->>>>>>> SelectPreferences
   return (
     <>
       <Navbar />
