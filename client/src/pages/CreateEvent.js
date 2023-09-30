@@ -1,12 +1,51 @@
 import './CreateEvent.css';
-import {useState} from 'react'
-function CreateEvent() {
-const [form, setForm] = useState({name: "",timeStart: 0.0,timeEnd: 30.0,url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[]});
+import {useState} from 'react';
 
-const checkTime = ()=>
-{
- //call backend, can this time be done
-}
+import DateObject from "react-date-object";
+function CreateEvent() {
+const user = localStorage.getItem('user')
+const cur_date = new Date()
+const [form, setForm] = useState({date:cur_date,name: "",timeStart: 0.0,timeEnd: 30.0,url:"",recurring:false,recurringTwice:false,recurringThree:false,recurringFour:false,tags:[],desc:""});
+
+async function adjustTime() {
+
+    
+   
+     const newEvent = JSON.stringify({
+     startTime:form.startTime,
+     endTime:form.endTime,
+     date:form.date,
+
+
+      });
+      console.log(newEvent);
+ 
+      const options = {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          Accept: "application/json",
+         "Content-Type": "application/json;charset=UTF-8",
+        },
+        body: newEvent,
+      };
+      try {
+       const response = await fetch("http://localhost:3001/checkevent ", options);
+       const result = await response.json();
+       if(result){
+        
+    }
+    else
+    {
+        
+    }
+    console.log(result);
+     } catch (err) {
+        console.log(err);
+        console.log("there was an error ");
+      }
+      
+   }
 const handleStartTime = (event) =>
 {
    
@@ -44,9 +83,7 @@ const handleEndTime = (event) =>
 {
  
     const comps = event.target.value.split('-');
- 
-    //base of 9 AM
-    console.log(comps+" "+comps.length)
+
    let hour = parseInt(comps[0])
             if(hour < 9)
             {
@@ -62,16 +99,38 @@ const handleEndTime = (event) =>
         {
             hour+=30;
         }
+        adjustTime();
         setForm({ ...form, timeEnd: hour });
     
 }
 const handleChange = (event) => {
     
     const { name, value } = event.target;
+   
     setForm({ ...form, [name]: value });
     
     
   };
+  const handleDay = (event) =>
+  {
+    var d = new Date();
+    
+    const dates = 
+    {
+        "Monday":0,
+        "Tuesday":1,
+        "Wednesday":2,
+        "Thursday":3,
+        "Friday":4,
+        "Saturday":5,
+        "Sunday":6,
+
+    }
+    d.setDate(d.getDate() + (((1 + 7 - d.getDay()) % 7) || 7));
+    d.setDate(d.getDate()+dates[event.target.value])
+    console.log(d)
+    setForm({ ...form, date: event.target.value });
+  }
   const handleClick = (event) => {
     
     
@@ -99,11 +158,47 @@ const handleTag = (event) =>
     }
     
 }
-const submitEvent = (event) => 
-{
-    event.preventDefault();
-    //post data 
-}
+    async function submitEvent(event) {
+
+       
+        event.preventDefault();
+        const newEvent = JSON.stringify({
+        eventName:form.name,
+        url:form.url,
+        startTime:form.timeStart,
+        endTime:form.timeEnd,
+        recurring:form.recurring,
+        categories:form.tags,
+        description:form.desc,
+        date:form.date,
+        broadcaster: "",
+        facilitator: "",
+        streamer:"",
+
+
+         });
+         console.log(newEvent);
+    
+         const options = {
+           method: "POST",
+           mode: "cors",
+           headers: {
+             Accept: "application/json",
+            "Content-Type": "application/json;charset=UTF-8",
+           },
+           body: newEvent,
+         };
+         try {
+          const response = await fetch("http://localhost:3001/planevent ", options);
+          const result = await response.json();
+       console.log(result);
+        } catch (err) {
+           console.log(err);
+           console.log("there was an error ");
+         }
+      }
+
+
   return (
  <div className = "form">
      
@@ -111,7 +206,7 @@ const submitEvent = (event) =>
      <div className = "day">
      <label>
           Pick your preferred day of the week:
-          <select  onChange={handleChange}>
+          <select  onChange={handleDay} >
             <option value="Monday">Monday</option>
             <option value="Tuesday">Tuesday</option>
             <option value="Wednesday">Wednesday</option>
@@ -174,8 +269,9 @@ const submitEvent = (event) =>
         </label>
         </div>
         <div className = "url">
-       <label type = "textarea" onChange = {handleChange} value = {form.url}>URL:</label>
-       </div>
+<label>URL:<input type = 'textArea' onChange={(e) => setForm({ ...form, url: e.target.value})}></input></label>
+{console.log(form.url)}
+            </div>
        <div class = "recur">
        <label>Is this a recurring event? <input name = "recurring" type = "checkbox" onChange = {handleClick}></input></label>
        </div>
@@ -197,8 +293,12 @@ const submitEvent = (event) =>
       
             
             </div> 
+            <div className = "desc">
+<label>Description of event:<input type = 'textArea' onChange={(e) => setForm({ ...form, desc: e.target.value})}></input></label>
+{console.log(user)}
+            </div>
            
-    <button className ="submit" onSubmit = {submitEvent}>Submit</button>
+    <button className ="submit" onClick = {submitEvent}>Submit</button>
 
  </div>
 
