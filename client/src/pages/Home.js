@@ -7,8 +7,8 @@ import React, { useState, useEffect } from "react";
 
 function Home() {
   const [totalVolunteerHours, setTotalVolunteerHours] = useState(0);
-  const [totalEvents, setTotalEvents] = useState(50000);
-  const [totalUsers, setTotalUsers] = useState(2);
+  const [totalEvents, setTotalEvents] = useState(0);
+  const [totalUsers, setTotalUsers] = useState(0);
   // const [recommendedEvents, setRecommendedEvents] = useState([]);
   // const [userPreferences, setUserPreferences] = useState([]);
 
@@ -127,7 +127,7 @@ function Home() {
             <h3> {totalUsers} </h3>
           </div>
           <div className="dashboardCards">
-            <h2> Number of Volunteer Hours: </h2>
+            <h2> Total of Volunteer Hours: </h2>
             <h3> {totalVolunteerHours} </h3>
           </div>
         </div>
