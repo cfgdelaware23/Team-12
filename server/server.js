@@ -228,27 +228,20 @@ app.post("/volunteer", async (req, res) => {
   }
 });
 
-email list
+
 app.post("/emaillist", async (req, res) => {
   // email object that contains the email as well as params for sending
-  const  = { emailAddress, email } = req.body;
+  const { emailAddress, email } = req.body;
 
-<<<<<<< HEAD
   // check if the incoming data is even an email
   if (!emailAddress) {
-    return res.status(400).json({ "Error: Not an email "})
+   res.status(404).json({ error: "Not an email "})
   } 
-=======
-//   // check if the incoming data is even an email
-//   if (!email) {
-//     return res.status(400).json({ "Error: Not an email "})
-//   }
->>>>>>> 26126c6ff6c54154f3cfd9751479a54dd7cc53ac
 
   const emailBody = { emailAddress, email };
 
   // return email body if it's an email
-  return res.status(200).json(emailBody);
+   res.status(200).json(emailBody);
 })
 
 app.get("/totalhours", async (req, res) => {
