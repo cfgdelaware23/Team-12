@@ -2,6 +2,7 @@ import './CreateEvent.css';
 import {useState} from 'react';
 
 import DateObject from "react-date-object";
+import Navbar from '../components/Navbar/navbar';
 function CreateEvent() {
 const user = localStorage.getItem('user')
 const cur_date = new Date()
@@ -209,8 +210,11 @@ const handleTag = (event) =>
 
 
   return (
+      
  <div className = "form">
-     
+     <Navbar />
+     <div className = "form-content">
+         <h1>Register your Event !</h1>
      <label>Name of Call:<input type = "text" value = {form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}></input></label>
      <div className = "day">
      <label>
@@ -307,10 +311,10 @@ const handleTag = (event) =>
 {console.log(user)}
             </div>
            
-            <button className="submit" onClick={form.name !=="" && form.url !=="" &&form.desc!=="" ? submitEvent : () => alert("You are missing fields")}>Submit</button>
+            <button className="submit-form" onClick={form.name !=="" && form.url !=="" &&form.desc!=="" ? submitEvent : () => alert("You are missing fields")}>Submit</button>
 
  </div>
-
+ </div>
   );
 }
 
