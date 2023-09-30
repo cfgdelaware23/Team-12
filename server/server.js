@@ -111,17 +111,13 @@ app.post("/checkevent", async (req, res) => {
   res.status(200).json({ conflict: false });
 });
 
-// getEvents route
-// sends a json of all the events
 app.get("/getEvents", async (req, res) => {
   const events = await Event.find().catch((err) => console.log(err));
 
   res.status(200).json(events);
 });
 
-// getEmptyEvents
 app.get("/getEmptyEvents", async (req, res) => {
-  // find all the attributes that take in a user
   const emptyEvents = await Event.find({
     $or: [
       { host: "" },
