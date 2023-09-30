@@ -9,7 +9,7 @@ const User = require("./User.js");
 
 const app = express();
 
-let user = { email: "" };
+let user = { email: "", totalHours: 10 };
 
 mongoose
   .connect(process.env.DB_CONNECTION)
@@ -44,7 +44,7 @@ app.post("/signin", async (req, res) => {
     const match = await bcrypt.compare(req.body.password, response.password);
     if (match) {
       console.log("match");
-      user = { email: req.body.email };
+      user = { email: response.email, totalHours: response.totalHours };
       res.status(200).json({ status: 200 });
     } else {
       console.log("wrong pass");
@@ -74,7 +74,7 @@ app.post("/signup", async (req, res) => {
         email: req.body.email,
         password: hash,
         isHost: req.body.isHost,
-        totalHours: 10,
+        totalHours: 0,
       });
       newUser.save();
       console.log("Account successfully created");
@@ -91,7 +91,9 @@ app.post("/signup", async (req, res) => {
   }
 });
 
-app.post("/planevent", (req, res) => {
+app.post("/planevent", async (req, res) => {
+  const hours = Math.abs(req.body.endTime - req.body.startTime);
+  console.log("differnce in hours:", hours);
   const newEvent = new Event({
     host: user.email,
     mod: req.body.mod,
@@ -107,7 +109,15 @@ app.post("/planevent", (req, res) => {
     eventName: req.body.eventName,
   });
   newEvent.save();
-  res.status(200).json({ message: successful });
+  console.log("users total hours:", user.totalHours);
+  console.log("difference in hours", hours);
+  const newHours = user.totalHours + hours;
+  const response = await User.findOneAndUpdate(
+    { email: user.email },
+    { totalHours: newHours }
+  );
+  user = { email: user.email, totalHours: newHours };
+  res.status(200).json({ message: "successful" });
   console.log("Event successfully added");
 });
 
@@ -190,4 +200,12 @@ app.get("/totalhours", async (req, res) => {
     sum = sum + user.totalHours;
   });
   res.status(200).json({ totalHours: sum });
+});
+
+app.get("/user", (req, res) => {
+  if (user.email != "") {
+    res.status(200).json(user);
+  } else {
+    res.status(404).json({ message: "no user logged in" });
+  }
 });
